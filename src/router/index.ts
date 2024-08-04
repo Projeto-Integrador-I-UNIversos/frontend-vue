@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/app',
       name: 'home',
       component: () => import('../views/HomeView.vue')
+    },
+    {
+      path: '/app/cadastrar-obra',
+      name: 'cadastrarObra',
+      component: () => import('../views/app/CadastrarObra.vue')
     }
   ]
 })
