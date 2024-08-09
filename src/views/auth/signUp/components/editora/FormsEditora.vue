@@ -1,3 +1,55 @@
+<script lang="ts">
+import './style.css'
+import { defineComponent } from 'vue';
+import Input from '../../../../../components/ui/input/Input.vue';
+import Label from '../../../../../components/ui/label/Label.vue';
+import axios from 'axios';
+
+export default defineComponent({
+    name: 'CadastrarEscritor',
+    components: {
+        Input,
+        Label
+    },
+    data() {
+        return {
+            nome : '',
+            cnpj : '',
+            telefone : '',
+            siteInstitucional : '',
+            pais : '',
+            descricao : '',
+            idUsuario: '',
+        }
+    },
+    mounted(){
+    },
+    methods: {
+        loadUser(){
+            console.log('CLICK');
+            const URL = 'http://localhost:5000';
+
+            axios.post(`${URL}/escritor/cadastro`, {
+                nome : this.nome,
+                cnpj : this.cnpj,
+                telefone : this.telefone,
+                siteInstitucional : this.siteInstitucional,
+                pais : this.pais,
+                descricao: this.descricao,
+                idUsuario: this.idUsuario,
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error('Erro:', error);
+            });
+        }
+    }
+})
+
+</script>
+
 <template>
     <div class="container-fluid">
         <form class="form">
@@ -89,7 +141,3 @@
         </form>
     </div>
 </template>
-
-<script>
-import './style.css'
-</script>

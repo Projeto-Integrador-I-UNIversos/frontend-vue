@@ -28,6 +28,7 @@ export default defineComponent({
             paginas : '',
             pais : '',
             descricao : '',
+            capaLivro: '',
             idEscritor : '',
             status : '',
             pdflivro: '',
@@ -41,12 +42,13 @@ export default defineComponent({
             console.log('CLICK');
             const URL = 'http://localhost:5000';
 
-            axios.post(`${URL}/usuario/login`, {
+            axios.post(`${URL}/livro/adicionar`, {
                 titulo : this.titulo,
                 idioma : this.idioma,
                 paginas : this.paginas,
                 pais : this.pais,
                 descricao : this.descricao,
+                capaLivro: this.capaLivro,
                 idEscritor : this.idEscritor,
                 status : this.status,
                 pdflivro: this.pdflivro,
