@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import { Input } from '../../components/ui/input';
 import axios from 'axios';
+import Label from '../../components/ui/label/Label.vue';
 /**
  * titulo
  * idioma
@@ -18,6 +19,7 @@ export default defineComponent({
     name: 'CadastrarObra',
     components: {
         Input,
+        Label
     },
     data() {
         return {
@@ -26,6 +28,7 @@ export default defineComponent({
             paginas : '',
             pais : '',
             descricao : '',
+            capaLivro: '',
             idEscritor : '',
             status : '',
             pdflivro: '',
@@ -39,12 +42,13 @@ export default defineComponent({
             console.log('CLICK');
             const URL = 'http://localhost:5000';
 
-            axios.post(`${URL}/usuario/login`, {
+            axios.post(`${URL}/livro/adicionar`, {
                 titulo : this.titulo,
                 idioma : this.idioma,
                 paginas : this.paginas,
                 pais : this.pais,
                 descricao : this.descricao,
+                capaLivro: this.capaLivro,
                 idEscritor : this.idEscritor,
                 status : this.status,
                 pdflivro: this.pdflivro,
@@ -65,13 +69,21 @@ export default defineComponent({
 <template>
     <div>
         <p>cadastrar obra</p>
+        <Label for="email">Titulo</Label>
         <Input type="text" placeholder="Titulo"/>
+        <Label for="email">Iidoma</Label>
         <Input type="text" placeholder="Idioma"/>
+        <Label for="email">Paginas</Label>
         <Input type="text" placeholder="Paginas"/>
+        <Label for="email">Pais</Label>
         <Input type="text" placeholder="Pais"/>
+        <Label for="email">Descricao</Label>
         <Input type="text" placeholder="Descricao"/>
+        <Label for="email">Status</Label>
         <Input type="text" placeholder="status"/>
+        <Label for="email">Generos</Label>
         <Input type="text" placeholder="Generos"/>
+        <Label for="email">PDF Livro</Label>
         <Input id="picture" type="file" />
     </div>
 </template>

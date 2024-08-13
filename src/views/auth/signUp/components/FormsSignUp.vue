@@ -1,4 +1,105 @@
-<template>
+<script lang="ts">
+ import '../style/FormsStyle.css';
+ import FormsEditora from '../components/editora/FormsEditora.vue'
+ import FormsEscritor from '../components/escritor/FormsEscritor.vue'
+ import axios from 'axios';
+
+ const editora =  {
+  name: String,
+  cnpj:String,
+  telefone:String,
+  instagram:String,
+  linkedin:String,
+  siteInstitucional:String,
+  twitter:String,
+  pais:String,
+  descricao:String
+ }
+ 
+ export default {
+    components: {
+        FormsEditora,
+        FormsEscritor,
+   },
+   data() {
+     return {
+       selectedOption: 'option1', 
+       showForm: true,
+       nome: '',
+       tipo :'' ,
+       email: '',
+       senha: '',
+       cnpj:'',
+       telefone:'',
+       linkedin:'',
+       siteInstitucional:'',
+       twitter:'',
+       pais:'',
+       descricao:'',
+       instagram:''
+     };
+   },
+   methods: {
+     handleOptionChange(option:any) {
+       if (this.selectedOption === option) {
+         this.selectedOption = '';
+         console.log('op 1');
+         this.tipo = 'escritor' 
+       } else {
+         this.selectedOption = option; 
+         this.tipo = 'editora'
+       }
+     },
+     handleSubmit() {
+         if (this.selectedOption) {
+            
+             this.showForm = false; // Esconder o formulário e mostrar o FormsEditora
+            // inputDescricao
+             
+         }
+         console.log(this.selectedOption);
+         
+         return this.selectedOption
+     },
+     async loadUser() {
+
+     //const tipo = await this.handleSubmit()
+     //console.log(tipo);
+     
+      
+       const URL = 'http://localhost:5001';
+ 
+       axios.post(`${URL}/cadastro`, {
+           email: this.email,
+           senha: this.senha,
+           tipo: 'editora',
+           editora_dado :{
+              nome: this.nome,
+              cnpj: this.cnpj,
+              telefone: this.telefone,
+              instagram: this.instagram,
+              linkedin: this.linkedin,
+              siteInstitucional: this.siteInstitucional,
+              twitter: this.twitter,
+              pais: this.pais,
+              descricao: this.descricao
+           }
+          
+       })
+       .then((response) => {
+           console.log(response.data);
+           this.handleSubmit()
+       })
+       .catch((error) => {
+           console.error('Erro:', error);
+       });
+     }
+   },
+ };
+ 
+ </script>
+ 
+ <template>
   <div className='containerRight'>
      
      <form v-if="showForm" class="form" @submit.prevent="loadUser">
@@ -52,81 +153,80 @@
            Editora
          </label>
        </div>
- 
-       <div class="buttonContainer">
-         <button class="button" type="submit">Entrar</button>
-       </div>
- 
+       <div class="formInputs">
+
+          <div class="row">
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Nome" class="form-control"></input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Data Nascimento" class="form-control"></input>
+              </div>
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Telefone" class="form-control"></input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="CPF" class="form-control"></input>
+              </div>
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Nacionalidade" class="form-control"></input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Sexo" class="form-control"></input>
+              </div>
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Linkedin" class="form-control"></input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Instagram" class="form-control"></input>
+              </div>
+              <div class="inputContainer col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <input placeholder="Twitter" class="form-control"></input>
+              </div>
+          </div>
+
+          </div>
+
+          <div class="row">
+          <div class="col">
+          <Checkbox />
+          </div>
+          <div class="col forgotContainer">
+          <p class="forgotPassword">Esqueceu a senha?</p>
+          </div>
+          </div>
+
+          <div class="buttonContainer">
+          <button class="button" type="submit">Entrar</button>
+          </div>
        <p class="haveAccount">Ja possui uma conta? <Link to="/login" class="haveAccount">Entrar</Link></p>
      </form>
  
-     <FormsEscritor v-else-if="selectedOption == 'option1'" />
  
-     <FormsEditora v-else/>
  </div>  
  </template>
- 
- <script>
- import { ref } from 'vue';
- import { useRouter } from 'vue-router';
- import '../style/FormsStyle.css';
- import FormsEditora from '../components/editora/FormsEditora.vue'
- import FormsEscritor from '../components/escritor/FormsEscritor.vue'
- import axios from 'axios';
- 
- export default {
-     components: {
-     FormsEditora,
-     FormsEscritor,
-   },
-   data() {
-     return {
-       selectedOption: 'option1', 
-       showForm: true,
-       tipo :'escritor' ,
-       email: '',
-       senha: ''
-     };
-   },
-   methods: {
-     handleOptionChange(option) {
-       if (this.selectedOption === option) {
-         this.selectedOption = '';
-         console.log('op 1'); // Desmarcar se já está selecionado
-       } else {
-         this.selectedOption = option; // Selecionar a nova opção
-       }
-     },
-     handleSubmit() {
-         if (this.selectedOption) {
-            
-             this.showForm = false; // Esconder o formulário e mostrar o FormsEditora
-            // inputDescricao
-             
-         }
-     },
-     loadUser() {
-       const URL = 'http://localhost:5000';
- 
-       axios.post(`${URL}/usuario/cadastro`, {
-           nome: 'lara',
-           email: this.email,
-           senha: this.senha,
-           tipo: this.tipo
-       })
-       .then((response) => {
-           console.log(response.data);
-           this.handleSubmit()
-       })
-       .catch((error) => {
-           console.error('Erro:', error);
-       });
-     }
-   },
- };
- 
- </script>
- 
+
  <style>
  
  </style>
