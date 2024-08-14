@@ -25,13 +25,13 @@ export default defineComponent({
         return {
             titulo : '',
             idioma : '',
-            paginas : '',
+            QuantPaginas : '',
             pais : '',
             descricao : '',
             capaLivro: '',
             idEscritor : '',
             status : '',
-            pdflivro: '',
+            PdfLivro: '',
             generos: ''
         }
     },
@@ -40,19 +40,40 @@ export default defineComponent({
     methods: {
         loadUser(){
             console.log('CLICK');
-            const URL = 'http://localhost:5000';
+            const URL = 'http://localhost:5001';
 
-            axios.post(`${URL}/livro/adicionar`, {
+            axios.post(`${URL}/cadastroLivro`, {
                 titulo : this.titulo,
                 idioma : this.idioma,
-                paginas : this.paginas,
+                QuantPaginas : this.QuantPaginas,
                 pais : this.pais,
                 descricao : this.descricao,
                 capaLivro: this.capaLivro,
-                idEscritor : this.idEscritor,
+                idEscritor : 30,
                 status : this.status,
-                pdflivro: this.pdflivro,
-                generos: this.generos,
+                PdfLivro: this.PdfLivro,
+                /**
+                 * titulo, 
+                 * idioma, 
+                 * QuantPaginas,
+                 *  pais,
+                 *  descricao, 
+                 * capaLivro,
+                 *  idEscritor, 
+                 * status,
+                 *  PdfLivro
+                 */
+                //generos: this.generos,
+                // titulo : "Dom Casmurro",
+                // idioma : "portugues",
+                // QuantPaginas : 256,
+                // pais : "Brasil",
+                // descricao : "Um romance",
+                // capaLivro: "url/para/a/capa/do/livro.jpg",
+                // idEscritor : 3,
+                // status : "Disponicel",
+                // PdfLivro: "url/para/o/pdf/do/livro.pdf",
+               // generos: this.generos,
             })
             .then((response) => {
                 console.log(response.data);
@@ -68,22 +89,29 @@ export default defineComponent({
 
 <template>
     <div>
-        <p>cadastrar obra</p>
-        <Label for="email">Titulo</Label>
-        <Input type="text" placeholder="Titulo"/>
-        <Label for="email">Iidoma</Label>
-        <Input type="text" placeholder="Idioma"/>
-        <Label for="email">Paginas</Label>
-        <Input type="text" placeholder="Paginas"/>
-        <Label for="email">Pais</Label>
-        <Input type="text" placeholder="Pais"/>
-        <Label for="email">Descricao</Label>
-        <Input type="text" placeholder="Descricao"/>
-        <Label for="email">Status</Label>
-        <Input type="text" placeholder="status"/>
-        <Label for="email">Generos</Label>
-        <Input type="text" placeholder="Generos"/>
-        <Label for="email">PDF Livro</Label>
-        <Input id="picture" type="file" />
+        <form class="form" @submit.prevent="loadUser">
+            <p>cadastrar obra</p>
+            <Label for="email">Titulo</Label>
+            <Input type="text" placeholder="Titulo" v-model="titulo"/>
+            <Label for="email">Idioma</Label>
+            <Input type="text" placeholder="Idioma" v-model="idioma"/>
+            <Label for="email">Paginas</Label>
+            <Input type="text" placeholder="Paginas" v-model="QuantPaginas"/>
+            <Label for="email">Pais</Label>
+            <Input type="text" placeholder="Pais" v-model="pais"/>
+            <Label for="email">Descricao</Label>
+            <Input type="text" placeholder="Descricao" v-model="descricao"/>
+            <Label for="email">Status</Label>
+            <Input type="text" placeholder="status" v-model="status"/>
+            <Label for="email">Generos</Label>
+            <Input type="text" placeholder="Generos" v-model="generos"/>
+            <Label for="email">Capa Livro</Label>
+            <Input id="picture" type="file" v-model="capaLivro"/>
+            <Label for="email">PDF Livro</Label>
+            <Input id="picture" type="file" v-model="PdfLivro"/>
+            <div >
+                <button class="bg-sky-500" type="submit">Entrar</button>
+            </div>
+        </form>
     </div>
 </template>
