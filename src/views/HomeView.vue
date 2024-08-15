@@ -5,26 +5,26 @@ import Sidebar from './Sidebar.vue';
 import MainContent from './MainContent.vue';
 import { ref } from 'vue';
 import axios from 'axios';
+import LivroItem from '@/components/LivroItem.vue';
+import TokenService from '@/service/sorage.service';
+import router from '@/router/routes';
+import Button from '@/components/ui/button/Button.vue';
 
 export default defineComponent({
   name: 'HomeView',
   components: {
     Header,
     Sidebar,
-    MainContent
+    MainContent,
+    LivroItem,
+    Button
   },
   data() {
     return {
-      data: ''
+      livros: [],
+      id: '' as string | null
     }  
   },
-  methods: {
-    loadItems() {
-
-      const URL = 'http://localhost:5001';
-      const response =  axios.post(`${URL}/usuarios`)
-    }
-  }
 })
 
 </script>
@@ -33,12 +33,9 @@ export default defineComponent({
     <main class="">
       <div class="h-screen w-screen flex grid grid-flow-row-dense grid-cols-3 grid-rows-3">
         <Sidebar class="row-span-2 absolute"/>
-          <div class="col-span-3 m-0 ">
+          <div class="col-span-3 ml-60 ">
             <Header />
             <RouterView/>
-            <div v-for="item in data">
-              <p>{{ item }}</p>
-            </div>
           </div>
         
       </div>
