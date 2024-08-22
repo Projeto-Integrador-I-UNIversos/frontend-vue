@@ -18,7 +18,7 @@ export default defineComponent({
             console.log('CLICK');
             const URL = 'http://localhost:5000';
 
-            axios.post(`${URL}/usuario/login`, {
+            axios.post(`${URL}/login`, {
                 email: this.email,
                 senha: this.senha,
             })
