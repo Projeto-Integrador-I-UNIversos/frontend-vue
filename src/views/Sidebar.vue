@@ -1,28 +1,16 @@
 <template>
-  <aside class="bg-gray-700 p-0 h-full w-60 border-r-2 border-gray-100 bg-white z-10">
-    <div class="p-10 content-usuario bg-stone-200 w-52 h-72 mt-10 border-2 rounded-mg flex flex-col" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;">
-      <div class="w-32 h-32" >
-        <img src="../../public/assets/images/rayssa.jpg" style="border-radius: 20px;"/>  
-      </div>
-      <p class="mt-4 text-black">Editora</p>
-      <p class="text-xl text-black">Rayssa Leal</p>
-    </div>
+  <aside class="bg-gray-700 p-0 h-full w-60 border-r-2 border-gray-100 bg-white z-10 pt-60" style="background-color: #6807d2;">     
 
-    <ul class="p-10">
+    <ul class="px-4">
 
-      <li class="flex py-3">
-        <House color="#000" class="mr-3"/>
-        <p class="text-xl text-black">Home</p>
+      <li class="active flex py-3 bg-slate-50 bg-opacity-25 pl-4 rounded-md">
+        <House color="#FFF" class="mr-3"/>
+        <p class="text-base text-white">Home</p>
       </li>
 
-      <li class="flex py-3">
-        <User color="#000" class="mr-3"/>
-        <p class="text-xl text-black">Escritores</p>
-      </li>
-
-      <li class="flex py-3">
-        <BookmarkCheck color="#000" class="mr-3"/>
-        <p class="text-xl text-black">Salvos</p>
+      <li class="flex py-3 pl-4">
+        <BookmarkCheck color="#FFF" class="mr-3"/>
+        <p class="text-base text-white">Salvos</p>
       </li>
     </ul>
 
@@ -44,6 +32,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
+aside {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
 
+.active {
+  border-radius: 10px;
+}
 
 </style>

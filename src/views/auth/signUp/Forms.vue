@@ -1,8 +1,5 @@
 <template>
-   <div class="d-flex flex-row">
-        <Image/>
-        <Forms/>
-    </div>
+
 </template>
 
 <script>

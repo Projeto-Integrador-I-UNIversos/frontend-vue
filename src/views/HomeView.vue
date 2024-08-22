@@ -32,12 +32,22 @@ export default defineComponent({
 <template>
     <main class="">
       <div class="h-screen w-screen flex grid grid-flow-row-dense grid-cols-3 grid-rows-3">
-        <Sidebar class="row-span-2 absolute"/>
-          <div class="col-span-3 ml-60 ">
-            <Header />
-            <RouterView/>
+        <Sidebar class="row-span-2 absolute menu"/>
+          <div class="col-span-3 ml-60">
+            <Header class="fixed"/>
+            <div class="mt-10">
+              <RouterView/>
+              </div>
+           
           </div>
         
       </div>
     </main>
 </template>
+
+<style>
+
+.menu {
+  position: fixed;
+}
+</style>

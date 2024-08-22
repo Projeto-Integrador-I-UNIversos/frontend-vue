@@ -2,12 +2,15 @@
 import './style.css'
 import axios from 'axios';
 import { defineComponent } from 'vue';
-import Input from '../../../../../components/ui/input/Input.vue';
+import Input from '@/components/ui/input/Input.vue';
 import Label from '../../../../../components/ui/label/Label.vue';
+import  universe from '@/assets/imagens/universe.png'
 
 export default {
     components: {
-        
+        Input,
+        Image,
+
    },
    data() {
      return {
@@ -24,7 +27,8 @@ export default {
        twitter:'',
        pais:'',
        descricao:'',
-       instagram:''
+       instagram:'',
+       universe
      };
    },
    methods: {
@@ -42,7 +46,7 @@ export default {
          if (this.selectedOption) {
             
              this.showForm = false; // Esconder o formulário e mostrar o FormsEditora
-            // inputDescricao
+            // InputDescricao
              
          }
          console.log(this.selectedOption);
@@ -81,6 +85,8 @@ export default {
        .then((response) => {
            console.log(response.data);
            this.handleSubmit()
+           alert("Cadastro Editora concluido")
+
        })
        .catch((error) => {
            console.error('Erro:', error);
@@ -92,80 +98,81 @@ export default {
  </script>
  
  <template>
-  <div className='containerRight'>
-     
-     <form class="form" @submit.prevent="loadUser">
+  <div class='flex justify-center'>
+    <div class="">
+        <img :src="universe" width="72%" height="400px"/>
+    </div>
+    <div class="flex justify-center w-[100vh]">
+      <form class="" @submit.prevent="loadUser">
        <h1 class="title">Seja Bem-Vindo!</h1>
        <h3>Crie agora sua conta</h3>
  
-       <div class="formInputs">
-         <div class="inputContainer">
-           <input placeholder="E-mail" class="form-control" v-model="email"></input>
+     
+       <div class="">
+
+          <div class="row">
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Nome" v-model="nome" class="my-1 border"></Input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="CNPJ" v-model="cnpj" class="my-1 border"></Input>
+              </div>
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Telefone" v-model="telefone" class="my-1 border"></Input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Linkedin" v-model="linkedin" class="my-1 border"></Input>
+              </div>
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Site Institucional" v-model="siteInstitucional" class="my-1 border"></Input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="twitter" v-model="twitter" class="my-1 border"></Input>
+              </div>
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Instagram" v-model="instagram" class="my-1 border"></Input>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Pais" v-model="pais" class="my-1 border"></Input>
+              </div>
+              <div class=" col">
+                  <!--i class="material-icons icon">mail</i-->
+                  <Input placeholder="Descricao" v-model="descricao" class="my-1 border"></Input>
+              </div>
+          </div>
+          <div class="">
+         <div class="">
+           <Input placeholder="E-mail" class="my-1 border" v-model="email"></Input>
          </div>
  
-         <div class="inputContainer">
-           <input placeholder="Senha" class="form-control" v-model="senha" required type="password"></input>
+         <div class="">
+           <Input placeholder="Senha" class="my-1 border" v-model="senha" required type="password"></Input>
          </div>
  
-         <div class="inputContainer">
-           <input placeholder="Confirmar Senha" class="form-control" required type="password"></input>
+         <div class="">
+           <Input placeholder="Confirmar Senha" class="my-1 border" required type="password"></Input>
          </div>
        </div>
-
- 
-       
-       <div class="formInputs">
-
-          <div class="row">
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Nome" v-model="nome" class="form-control"></input>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="CNPJ" v-model="cnpj" class="form-control"></input>
-              </div>
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Telefone" v-model="telefone" class="form-control"></input>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Linkedin" v-model="linkedin" class="form-control"></input>
-              </div>
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Site Institucional" v-model="siteInstitucional" class="form-control"></input>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="twitter" v-model="twitter" class="form-control"></input>
-              </div>
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Instagram" v-model="instagram" class="form-control"></input>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Pais" v-model="pais" class="form-control"></input>
-              </div>
-              <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
-                  <input placeholder="Descricao" v-model="descricao" class="form-control"></input>
-              </div>
-          </div>
 
           </div>
 
@@ -178,16 +185,18 @@ export default {
           </div>
           </div>
 
+
           <div class="buttonContainer">
           <button class="button" type="submit">Entrar</button>
           </div>
        <p class="haveAccount">Ja possui uma conta? <Link to="/login" class="haveAccount">Entrar</Link></p>
      </form>
- 
- 
+    </div>
  </div>  
  </template>
 
  <style>
- 
+ .border {
+  border-radius: 10px;
+ }
  </style>

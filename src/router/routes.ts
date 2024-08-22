@@ -64,7 +64,7 @@ const routes: Array<RouteRecordRaw> = [
       <RouteRecordRaw> {
         name: 'CadastroObra',
         path: 'cadastro-obra',
-        component: () => import('../views/app/CadastrarObra.vue')
+        component: () => import('../views/app/livros/CadastrarObra.vue')
       },
       <RouteRecordRaw> {
         path: 'livros/:idLivro/editar',

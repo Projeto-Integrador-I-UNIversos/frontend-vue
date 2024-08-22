@@ -1,21 +1,95 @@
+<script lang="ts">
+import { Input } from '../components/ui/input';
+import { Search, Plus, Mail, Bell } from 'lucide-vue-next'
+import {
+DropdownMenu,
+DropdownMenuContent,
+DropdownMenuItem,
+DropdownMenuLabel,
+DropdownMenuSeparator,
+DropdownMenuTrigger,
+} from '../components/ui/dropdown-menu'
+import {
+Card,
+CardContent,
+CardDescription,
+CardFooter,
+CardHeader,
+CardTitle,
+} from '../components/ui/card'
+import { cn } from '../lib/utils';
+
+import { defineComponent } from 'vue';
+export default defineComponent({
+  name: 'Header',
+  components: {
+    Input,
+    Search,
+    Plus,
+    Mail,
+    Bell,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    cn,
+  },
+  data() {
+    return {
+      notifications : [
+        {
+          title: 'Your call has been confirmed.',
+          description: '1 hour ago',
+        },
+        {
+          title: 'You have a new message!',
+          description: '1 hour ago',
+        },
+        {
+          title: 'Your subscription is expiring soon!',
+          description: '2 hours ago',
+        },
+      ],
+      cn
+    }
+  }
+})
+</script>
+
 <template>
-  <header class="bg-white p-4 border-b-2 flex flex-row-reverse px-20">
+  <header class="bg-white p-4 border-b-2 flex-row-reverse px-10 nav">
     <ul class="flex flex-row">
+      
       <li class="px-2 w-96">
         <div class="relative w-full max-w-sm items-center">
-          <Input id="search" type="text" placeholder="Search..." class="pl-10 border-stone-400" style="border-radius: 30px;"/>
+          <Input id="search" type="text" placeholder="Pesquisar..." class="pl-10 border-stone-400" style="border-radius: 10px;"/>
           <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
             <Search class="size-6 text-muted-foreground" color="#a8a29e" />
           </span>
         </div>
       </li>
-      <li>
-        <Button class="flex bg-indigo-400 text-white flex items-center hover:bg-indigo-500" style="border-radius: 30px;" 
+      <li class="ml-96 cursor-pointer">
+        <Mail class="ml-60 mr-2 mt-3"/>
+      </li>
+      <li class="mt-3 mx-3 cursor-pointer">
+        <Bell/>
+      </li>
+      <li >
+        <Button class="flex bg-violet-600 text-white flex items-center hover:bg-indigo-500" style="border-radius: 30px;" 
         @click="$router.push(`/app/cadastro-obra`)">
           <Plus class="w-4 h-4 mr-2 " /> Adicionar Livro
         </Button>
       </li>
-      <li>
+     
+      <!--li>
         <DropdownMenu>
           <DropdownMenuTrigger>Open</DropdownMenuTrigger>
           <DropdownMenuContent class="bg-white mr-10">
@@ -62,76 +136,25 @@
             </Card>
           </DropdownMenuContent>
         </DropdownMenu>
+      </li-->
+      <li>
+        <div class="bg-green-400 w-12 h-12 icon ml-6">
+          <p>a</p>
+        </div>
       </li>
     </ul>
   
   </header>
 </template>
 
-<script lang="ts">
-import { Input } from '../components/ui/input';
-import { Search, Plus } from 'lucide-vue-next'
-import {
-DropdownMenu,
-DropdownMenuContent,
-DropdownMenuItem,
-DropdownMenuLabel,
-DropdownMenuSeparator,
-DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu'
-import {
-Card,
-CardContent,
-CardDescription,
-CardFooter,
-CardHeader,
-CardTitle,
-} from '../components/ui/card'
-import { cn } from '../lib/utils';
-
-import { defineComponent } from 'vue';
-export default defineComponent({
-  name: 'Header',
-  components: {
-    Input,
-    Search,
-    Plus,
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    cn,
-  },
-  data() {
-    return {
-      notifications : [
-        {
-          title: 'Your call has been confirmed.',
-          description: '1 hour ago',
-        },
-        {
-          title: 'You have a new message!',
-          description: '1 hour ago',
-        },
-        {
-          title: 'Your subscription is expiring soon!',
-          description: '2 hours ago',
-        },
-      ],
-      cn
-    }
-  }
-})
-</script>
-
 <style scoped>
+
+.nav {
+  width: 100%;
+}
+
+.icon {
+  border-radius: 30px;
+}
 
 </style>

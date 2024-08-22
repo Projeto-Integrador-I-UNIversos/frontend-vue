@@ -146,7 +146,7 @@ export default defineComponent({
     const deletarLivro = async () => {
       if (confirm('Tem certeza que deseja deletar este livro?')) {
         try {
-          await axios.post(`http://localhost:5001/deletarLivro/${idLivro}`);
+          await axios.delete(`http://localhost:5001/deletarLivro/${idLivro}`);
           alert('Livro deletado com sucesso!');
           router.push('/app');
         } catch (error) {

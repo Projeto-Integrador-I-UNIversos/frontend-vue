@@ -55,7 +55,9 @@ export default defineComponent({
        })
        .then((response) => {
            console.log(response.data);
-       })
+           alert("Cadastro Escritor concluido")
+
+        })
        .catch((error) => {
            console.error('Erro:', error);
        });
