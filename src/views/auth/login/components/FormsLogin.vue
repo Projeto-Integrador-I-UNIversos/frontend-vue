@@ -3,6 +3,7 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 import '../style/FormsStyle.scss';
 
+
 export default defineComponent({
     name: 'FormsLogin',
     data() {
@@ -16,9 +17,9 @@ export default defineComponent({
     methods: {
         loadUser(){
             console.log('CLICK');
-            const URL = 'http://localhost:5000';
+            const URL = 'http://localhost:5001';
 
-            axios.post(`${URL}/usuario/login`, {
+            axios.post(`${URL}/login`, {
                 email: this.email,
                 senha: this.senha,
             })

@@ -1,8 +1,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Input } from '../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import axios from 'axios';
-import Label from '../../components/ui/label/Label.vue';
+import Label from '@/components/ui/label/Label.vue';
 import Button from '@/components/ui/button/Button.vue';
 
 export default defineComponent({

@@ -91,49 +91,36 @@ export default defineComponent({
         <img src="../assets/imagens/livro-2.png" width="22.3%">
       </div>
       <div class="flex items-end justify-end mt-14">
-       
+      </div>
+      
+    </div>
+    <div class="flex justify-center my-10" >
+      <h1 class="flex text-xl" >Generos</h1>
+      <div class="pt-10">
+      
+        <Carousel
+          class="relative w-[150vh]"
+          :opts="{
+            align: 'start',
+          }"
+        >
+          <CarouselContent class="w-[150vh]">
+            <CarouselItem v-for="(_, index) in 20" :key="index" class="md:basis-1/2 lg:basis-1/12 mx-4 ">
+              <div class="py-1 px-3">
+                <Card class="w-20 carroussel">
+                  <CardContent class="flex aspect-square items-center justify-center p-6 ">
+                    <span class="text-3xl font-semibold">{{ index + 1 }}</span>
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
     </div>
-    <div class="grid grid-flow-row-dense grid-cols-2 grid-rows-1 justify-center mt-14">
-      <div class="border shadow m-4 grid grid-flow-row-dense grid-cols-3 grid-rows-2 items-center">
-        <img :src="caminhoCompletoCapa" width="200px" class="image row-span-2 col-span-1"/>
-        <div class="row-span-2 col-span-2 py-6 px-8 text-left	items-center">
-          <p class="text-xl font-bold">As flores do mal</p>
-          <p class="text-sm py-2">Autor: Charles Baudelaire</p>
-          <p class="text-sm">As Flores do Mal é um livro escrito pelo poeta francês Charles Baudelaire, considerado um marco da poesia moderna e simbolista. As Flores do Mal reúnem, de modo exemplar, uma série de motivos da obra do poeta: a queda; a expulsão do paraíso; o amor; o erotismo; a decadência; a morte; o tempo; o exílio e o tédio.</p>
-        </div>
-      </div>
-      <div class="border shadow m-4 grid grid-flow-row-dense grid-cols-3 grid-rows-2 items-center">
-        <img :src="caminhoCompletoCapa" width="200px" class="image row-span-2 col-span-1"/>
-        <div class="row-span-2 col-span-2 py-6 px-8 text-left	items-center">
-          <p class="text-xl font-bold">As flores do mal</p>
-          <p class="text-sm py-2">Autor: Charles Baudelaire</p>
-          <p class="text-sm">As Flores do Mal é um livro escrito pelo poeta francês Charles Baudelaire, considerado um marco da poesia moderna e simbolista. As Flores do Mal reúnem, de modo exemplar, uma série de motivos da obra do poeta: a queda; a expulsão do paraíso; o amor; o erotismo; a decadência; a morte; o tempo; o exílio e o tédio.</p>
-        </div>
-      </div>
-    </div>
-    <div class="flex justify-center my-10">
-      <Carousel
-        class="relative w-[130vh]"
-        :opts="{
-          align: 'start',
-        }"
-      >
-        <CarouselContent class="w-[130vh]">
-          <CarouselItem v-for="(_, index) in 10" :key="index" class="md:basis-1/2 lg:basis-1/6 mx-4 ">
-            <div class="py-1 px-3">
-              <Card class="w-32 carroussel">
-                <CardContent class="flex aspect-square items-center justify-center p-6 ">
-                  <span class="text-3xl font-semibold">{{ index + 1 }}</span>
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
-    </div>
+   
     
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-2">
         <LivroItem 
