@@ -139,6 +139,66 @@ export default defineComponent({
           capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
           id: 1 as number
         },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
     ]
     }  
   },
@@ -198,20 +258,20 @@ export default defineComponent({
     </div>
     <div class="flex justify-center my-10" >
       <h1 class="flex text-xl" >Generos</h1>
-      <div class="pt-10">
+      <div class="mt-10 flex justify-center ml-[-60px]">
       
         <Carousel
-          class="relative w-[150vh]"
+          class="relative w-[160vh]"
           :opts="{
             align: 'start',
           }"
         >
-          <CarouselContent class="w-[150vh]">
+          <CarouselContent class="w-[170vh]">
             <CarouselItem v-for="(generos, index) in generos" :key="generos.id" class="md:basis-1/2 lg:basis-1/12 mx-4 ">
               <div class="py-1 px-3">
-                <Card class="w-20 border-0">
+                <Card class="w-40 border-0">
                   <CardContent class="border-0 flex flex-col aspect-square items-center justify-center p-6 ">
-                      <img :src="generos.capa" width="150px" class="w-[100px]"/>
+                      <img :src="generos.capa" width="150px" class="w-[80px] h-[80px] rounded-[100%]"/>
                       <p>Genero</p>
                   </CardContent>
                 </Card>

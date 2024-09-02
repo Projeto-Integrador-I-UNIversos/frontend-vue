@@ -68,7 +68,7 @@ export default defineComponent({
   <header class="bg-white p-4 border-b-2 flex-row px-10 w-[100%]">
     <ul class="flex flex-row">
       
-      <li class="px-2 w-96 mr-[116vh]">
+      <li class="px-2 w-96 mr-[86vh]">
         <div class="relative w-full max-w-sm items-center">
           <Input id="search" type="text" placeholder="Pesquisar..." class="pl-10 border-stone-400" style="border-radius: 10px;"/>
           <span class="absolute start-0 inset-y-0 flex items-center justify-center px-2">
@@ -77,10 +77,10 @@ export default defineComponent({
         </div>
       </li>
       <li >
-        <!--Button class="flex bg-violet-600 text-white flex items-center hover:bg-indigo-500" style="border-radius: 30px;" 
+        <Button class="flex bg-violet-600 text-white flex items-center hover:bg-indigo-500" style="border-radius: 30px;" 
         @click="$router.push(`/app/cadastro-obra`)">
           <Plus class="w-4 h-4 mr-2 " /> Adicionar Livro
-        </Button-->
+        </Button>
       </li>
      
       <!--li>

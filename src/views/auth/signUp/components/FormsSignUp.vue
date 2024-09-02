@@ -3,6 +3,7 @@
  import FormsEditora from '../components/editora/FormsEditora.vue'
  import FormsEscritor from '../components/escritor/FormsEscritor.vue'
  import axios from 'axios';
+ import universe from '@/assets/imagens/universe.png'
 
  const editora =  {
   name: String,
@@ -20,6 +21,7 @@
     components: {
         FormsEditora,
         FormsEscritor,
+        
    },
    data() {
      return {
@@ -36,7 +38,8 @@
        twitter:'',
        pais:'',
        descricao:'',
-       instagram:''
+       instagram:'',
+       universe
      };
    },
    methods: {
@@ -101,7 +104,9 @@
  
  <template>
   <div className='containerRight'>
-     
+    <div class="w-[103vh] fixed ml-[-30%]">
+        <img :src="universe" width="100%" height="400px"/>
+    </div>
      <form v-if="showForm" class="form" @submit.prevent="loadUser">
        <h1 class="title">Seja Bem-Vindo!</h1>
        <h3>Crie agora sua conta</h3>

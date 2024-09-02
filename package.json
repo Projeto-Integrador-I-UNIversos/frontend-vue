@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formkit/addons": "^1.6.5",
+    "@formkit/themes": "^1.6.5",
+    "@formkit/vue": "^1.6.5",
+    "@material-tailwind/html": "^2.3.0",
     "@vueuse/core": "^10.11.1",
     "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",

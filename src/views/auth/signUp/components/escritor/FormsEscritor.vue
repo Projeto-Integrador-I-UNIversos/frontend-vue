@@ -4,6 +4,7 @@ import axios from 'axios';
 import { defineComponent } from 'vue';
 import Input from '../../../../../components/ui/input/Input.vue';
 import Label from '../../../../../components/ui/label/Label.vue';
+import universe from '@/assets/imagens/universe.png'
 
 export default defineComponent({
     name: 'CadastrarEscritor',
@@ -27,6 +28,7 @@ export default defineComponent({
             descricao:'',
             instagram:'',
             sexo: '',
+            universe
         }
     },
     mounted(){
@@ -69,9 +71,12 @@ export default defineComponent({
 </script>
 
 <template>
-    <div className='containerRight'>
-     
-     <form class="form" @submit.prevent="loadUser">
+    <!--div class='flex justify-center '>
+        <div class="w-[103vh] fixed ml-[-30%]">
+            <img :src="universe" width="100%" height="400px"/>
+        </div>
+    <div class="flex bg-green-400 justify-center items-center w-[100vh] pl-[160vh] py-[40px]">
+        <form class="form" @submit.prevent="loadUser">
        <h1 class="title">Seja Bem-Vindo!</h1>
        <h3>Crie agora sua conta</h3>
  
@@ -95,51 +100,42 @@ export default defineComponent({
 
           <div class="row">
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Nome" v-model="nome" class="form-control"></input>
               </div>
           </div>
 
           <div class="row">
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Data Nascimento" v-model="dataNasc" class="form-control"></input>
               </div>
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Telefone" class="form-control" v-model="telefone"></input>
               </div>
           </div>
 
           <div class="row">
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="CPF" v-model="cpf" class="form-control"></input>
               </div>
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Nacionalidade" v-model="nacionalidade" class="form-control"></input>
               </div>
           </div>
 
           <div class="row">
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Sexo" v-model="sexo" class="form-control"></input>
               </div>
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Linkedin" v-model="linkedin" class="form-control"></input>
               </div>
           </div>
 
           <div class="row">
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Instagram" v-model="instagram" class="form-control"></input>
               </div>
               <div class="inputContainer col">
-                  <!--i class="material-icons icon">mail</i-->
                   <input placeholder="Twitter" v-model="twitter" class="form-control"></input>
               </div>
           </div>
@@ -159,8 +155,20 @@ export default defineComponent({
           <button class="button" type="submit">Entrar</button>
           </div>
        <p class="haveAccount">Ja possui uma conta? <Link to="/login" class="haveAccount">Entrar</Link></p>
-     </form>
+        
+         <h1 class="title">Seja Bem-Vindo!</h1>
+       <h3>Crie agora sua conta</h3>
+    
+    </form>
+    </div>
+
  
  
- </div> 
+ </div--> 
+<div class='flex justify-center '>
+    <div class="w-[104vh] fixed mt-[-24%] ml-[48%]">
+            <img :src="universe" width="100%" height="400px"/>
+        </div>
+</div>
+
 </template>

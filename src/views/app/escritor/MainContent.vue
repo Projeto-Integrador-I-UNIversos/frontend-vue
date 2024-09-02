@@ -7,9 +7,10 @@ import axios from 'axios';
 import router from '@/router';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Card, CardContent } from '@/components/ui/card'
+import EditoraItem from '@/components/EditoraItem.vue';
 
 interface Livro {
-  titulo: string;
+  editora: string;
   idioma: string;
   QuantPaginas: number;
   pais: string;
@@ -32,12 +33,172 @@ export default defineComponent({
     CarouselNext, 
     CarouselPrevious,
     Card, 
-    CardContent
+    CardContent,
+    EditoraItem
   },
   data() {
     return {
       livros: [] as Livro[],
-      id: '' as string | null
+      id: '' as string | null,
+      data: [
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          editora: "Editora pequeno Principe",
+          escritor: "Antoine de Saint-Exupery",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+    ],
+    generos: [
+      {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+        {
+          titulo: "O pequeno Principe",
+          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+          id: 1 as number
+        },
+    ]
     }  
   },
   mounted() {
@@ -96,20 +257,21 @@ export default defineComponent({
     </div>
     <div class="flex justify-center my-10" >
       <h1 class="flex text-xl" >Generos</h1>
-      <div class="pt-10">
+      <div class="mt-10 flex justify-center ml-[-60px]">
       
         <Carousel
-          class="relative w-[150vh]"
+          class="relative w-[160vh]"
           :opts="{
             align: 'start',
           }"
         >
-          <CarouselContent class="w-[150vh]">
-            <CarouselItem v-for="(_, index) in 20" :key="index" class="md:basis-1/2 lg:basis-1/12 mx-4 ">
+          <CarouselContent class="w-[170vh]">
+            <CarouselItem v-for="(generos, index) in generos" :key="generos.id" class="md:basis-1/2 lg:basis-1/12 mx-4 ">
               <div class="py-1 px-3">
-                <Card class="w-20 carroussel">
-                  <CardContent class="flex aspect-square items-center justify-center p-6 ">
-                    <span class="text-3xl font-semibold">{{ index + 1 }}</span>
+                <Card class="w-40 border-0">
+                  <CardContent class="border-0 flex flex-col aspect-square items-center justify-center p-6 ">
+                      <img :src="generos.capa" width="150px" class="w-[80px] h-[80px] rounded-[100%]"/>
+                      <p>Genero</p>
                   </CardContent>
                 </Card>
               </div>
@@ -121,17 +283,38 @@ export default defineComponent({
       </div>
     </div>
    
+    <div class="flex mt-14">
+      <p class="text-left pr-2">Mostrar Todos os Livros</p>
+      <ArrowRight/>
+    </div>
+    <div class="flex justify-center" >
+      <Carousel
+          class="relative w-[160vh]"
+          :opts="{
+            align: 'start',
+          }"
+          v-bind:autoplay="true" v-bind:loop="true"
+        >
+          <CarouselContent class="w-[170vh]">
+            <CarouselItem v-for="(livro, index) in data" :key="livro.id" class="md:basis-1/2 lg:basis-40 mx-4 ">
+              <div class="py-1 px-3">
+                <Card class="w-20 border-0	">
+                  <CardContent class="flex aspect-square items-center justify-center p-6">
+                    <EditoraItem 
+                      class="w-44 h-60 mb-[40px]"
+                      :editora="livro.editora"
+                      :capaLivro="livro.capa"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-2">
-        <LivroItem 
-            class="w-44 h-60"
-            v-for="livro in livros" 
-            :titulo="livro.titulo"
-            :capaLivro="livro.capaLivro"
-            :idLivro="livro.idLivro"
-        />
-        <!--router-link :to="`/app/livros/${id}/editar`">Editar</router-link-->
-    </div> 
     
 </main>
 </template>
