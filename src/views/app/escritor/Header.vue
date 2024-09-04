@@ -77,7 +77,7 @@ export default defineComponent({
         </div>
       </li>
       <li >
-        <Button class="flex bg-violet-600 text-white flex items-center hover:bg-indigo-500" style="border-radius: 30px;" 
+        <Button class="flex bg-indigo-600 text-white flex items-center hover:bg-indigo-500 rounded-[30px]" 
         @click="$router.push(`/app/cadastro-obra`)">
           <Plus class="w-4 h-4 mr-2 " /> Adicionar Livro
         </Button>

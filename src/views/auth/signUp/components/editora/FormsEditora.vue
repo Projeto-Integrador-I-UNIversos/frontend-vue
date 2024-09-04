@@ -4,13 +4,15 @@ import axios from 'axios';
 import { defineComponent } from 'vue';
 import Input from '@/components/ui/input/Input.vue';
 import Label from '../../../../../components/ui/label/Label.vue';
-import  universe from '@/assets/imagens/universe.png'
+import  universe from '@/assets/imagens/header-img.svg'
+import Button from '@/components/ui/button/Button.vue';
 
 export default {
     components: {
         Input,
         Image,
-        Label
+        Label,
+        Button
    },
    data() {
      return {
@@ -98,85 +100,296 @@ export default {
  </script>
  
  <template>
-  <div class='flex justify-center'>
-    <div class="w-[103vh] fixed ml-[-30%]">
-        <img :src="universe" width="100%" height="400px"/>
+  <div class='text-white banner flex justify-center w-[211.4vh] h-[100vh]'>
+    <div class="text-white fixed flex mr-[40%] mt-[10%]">
+        <img :src="universe" width="80%" height="400px"/>
     </div>
-    <div class="flex justify-center items-center w-[100vh] pl-[160vh] py-[40px]">
-      <form class="" @submit.prevent="loadUser">
-       <h1 class="title">Seja Bem-Vindo!</h1>
-       <h3>Crie agora sua conta</h3>
-
-          <div>
-              <div class=" col">
-                 <Label class="flex text-left ml-3 mb-2">Nome:</Label>
-                 <Input placeholder="Nome" v-model="nome" class="my-1 border"></Input>
-              </div>
-              <div class="py-3">
-                <Label class="flex text-left ml-3 mb-2">Email:</Label>
-                <Input placeholder="E-mail" class="my-1 border" v-model="email"></Input>
-              </div>
-              <div class="flex">
-                <div class="py-3 pr-4">
-                  <Label class="flex text-left ml-3 mb-2">Pais:</Label>
-                  <Input placeholder="Pais" v-model="pais" class="my-1 border"></Input>
+    <div class="text-white flex justify-center items-center py-[40px] ml-[40%] w-full">
+      <form class="text-white w-[80vh] justify-left" @submit.prevent="loadUser">
+       <h1 class="text-white title">Seja Bem-Vindo!</h1>
+       <h3 class="mb-4">Crie agora sua conta</h3>
+       
+          <div class="">
+            <div class="flex" > 
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="nome"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Nome
+                    </label>
                 </div>
-                <div class="pt-3 pb-6" >
-                  <Label class="flex text-left ml-3 mb-2">CNPJ:</Label>
-                  <Input placeholder="CNPJ" v-model="cnpj" class="my-1 border"></Input> 
+                          
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="email"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Email
+                    </label>
+                </div>
+            </div>
+              
+              <div class="text-white flex">
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="pais"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Pais
+                    </label>
+                </div>
+                
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="cnpj"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">CNPJ
+                    </label>
                 </div>
               </div>
+              <div class="relative w-full h-10 m-2 pr-4">
+                    <input v-model="telefone"
+                    class="peer w-full  h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Telefone
+                    </label>
+                </div>
+              <div class="text-white flex">
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="linkedin"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Linkedin
+                    </label>
+                </div>
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="siteInstitucional"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Site Institucional
+                    </label>
+                </div>
+              </div>
+              <div class="text-white flex">
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="twitter"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Twitter
+                    </label>
+                </div>
+                <div class="relative w-full h-10 m-2">
+                    <input v-model="instagram"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Instagram
+                    </label>
+                </div>
+              </div>
+      
+              <div class="relative w-full m-2 pr-4">
+                    <textarea v-model="descricao" rows="5" cols="50"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " ></textarea><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Descricao
+                    </label>
+                </div>
               <div>
-                <Input placeholder="Telefone" v-model="telefone" class="my-1 border"></Input>
-              </div>
-              <div class="flex">
-                <div class="py-6 pr-4">
-                  <Label class="flex text-left ml-3 mb-2">Linkedin:</Label>
-                  <Input placeholder="Linkedin" v-model="linkedin" class="my-1 border"></Input>
-                </div>
-                <div class="py-6">
-                  <Label class="flex text-left ml-3 mb-2">Site Institucional:</Label>
-                  <Input placeholder="Site Institucional" v-model="siteInstitucional" class="my-1 border"></Input>
-                </div>
-              </div>
-              <div class="flex">
-                <div class="py-2 pr-4">
-                  <Label class="flex text-left ml-3 mb-2">Twitter:</Label>
-                  <Input placeholder="twitter" v-model="twitter" class="my-1 border"></Input>
-                </div>
-                <div class="py-2">
-                  <Label class="flex text-left ml-3 mb-2">Instagram:</Label>
-                  <Input placeholder="Instagram" v-model="instagram" class="my-1 border"></Input>
-                </div>
-              </div>
-              <div class="py-2">
-                <Label class="flex text-left ml-3 mb-2">Descricao:</Label>
-                <textarea v-model="descricao" placeholder="descricao" rows="5" cols="50" class="border border-gray-300 p-4 text-sm"></textarea>
-              </div>
-              <div>
-                <div class="py-2">
-                  <Label class="flex text-left ml-3 mb-2">Senha:</Label>
-                  <Input placeholder="Senha" class="my-1 border" v-model="senha" required type="password"></Input>
+                <div class="relative w-full h-10 m-2 pr-4">
+                    <input v-model="senha"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Senha
+                    </label>
                 </div>
         
-                <div class="py-2">
-                  <Label class="flex text-left ml-3 mb-2">Repetir senha:</Label>
-                  <Input placeholder="Confirmar Senha" class="my-1 border" required type="password"></Input>
+                <div class="relative w-full h-10 m-2 pr-4">
+                    <input v-model="nome"
+                    class="peer w-full h-full bg-transparent text-white font-sans 
+                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                    placeholder=" " /><label
+                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
+                        before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
+                        style="border-radius: 10px;">Confirmar Senha
+                    </label>
                 </div>
               </div>
           </div>
 
-          <div class="row">
-          <div class="">
-          <p class="text-left">Esqueceu a senha?</p>
+          <div class="text-white row">
+          <div class="text-white ">
+          <p class="text-white text-left text-base ml-3">Esqueceu a senha?</p>
           </div>
           </div>
 
 
-          <div class="">
-          <button class="bg-violet-500 text-white rounded-[30px] w-[200px]" type="submit">Entrar</button>
+          <div class="text-white ">
+            <Button class="text-white bg-white text-black rounded-[10px] w-[200px] hover:bg-white" type="submit">Cadastrar</Button>
           </div>
-       <p class="text-left mt-3">Ja possui uma conta? <RouterLink to="/login" class="text-black">Entrar</RouterLink></p>
+       <p class="text-white text-left mt-3 ml-3">Ja possui uma conta? <RouterLink to="/login" class="text-white text-white">Entrar</RouterLink></p>
      </form>
     </div>
  </div>  
@@ -184,6 +397,11 @@ export default {
 
  <style>
  .border {
-  border-radius: 30px;
+  border-radius: 10px;
  }
+
+ .banner {
+    background-image: url("@/assets/imagens/5432299.jpg");
+}
+
  </style>

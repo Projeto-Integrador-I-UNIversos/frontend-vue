@@ -1,52 +1,55 @@
 <template>
-  <div class="bg-white text-white h-screen w-60 py-3 pl-3">
-  <div class="border-[2px] border-inherit rounded-[20px] h-[96vh] px-4">
+  <div class="text-white h-screen w-60 pl-3 pt-4">
+  <div class="border-[2px] border-white h-[96vh] px-6 bg-[#5402b6] rounded-[20px]">
     <div class="mt-8">
     <ul class="space-y-4">
-      <li>
-        <AlignJustify color="#000" class="mb-32"/>
+      <li class="mb-32">
+        <div class="">
+          <AlignJustify color="#000" class="border-[1px] w-10 border-gray-300 rounded-[20px] h-10 p-2 bg-white ml-[98%]"/>
+        </div>
+        
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-         <House color="#000"/>
-          <span class="text-gray-700">Home</span>
+         <House color="#fff"/>
+          <span class="text-white">Home</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-         <MessageCircleMore color="#000"/>
-          <span class="text-gray-700">Mensagens</span>
+         <MessageCircleMore color="#fff"/>
+          <span class="text-white">Mensagens</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <BellDot color="#000"/>
-          <span class="text-gray-700">Notifications</span>
-          <span class="bg-red-500 text-white rounded-full px-2 py-1 ml-2">2</span>
+          <BellDot color="#fff"/>
+          <span class="text-white">Notifications</span>
+          <span class="bg-red-500 text-white rounded-full px-1 py-1 ml-2">2</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <UsersRound color="#000"/>
-          <span class="text-gray-700">Editoras</span>
+          <UsersRound color="#fff"/>
+          <span class="text-white">Editoras</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <Heart color="#000"/>
-          <span class="text-gray-700">Favoritos</span>
+          <Heart color="#fff"/>
+          <span class="text-white">Favoritos</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <Settings color="#000"/>
-          <span class="text-gray-700">Configuracoes</span>
+          <Settings color="#fff"/>
+          <span class="text-white">Configuracoes</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <UserRound color="#000"/>
-          <span class="text-gray-700">Perfil</span>
+          <UserRound color="#fff"/>
+          <span class="text-white">Perfil</span>
         </a>
       </li>
     </ul>
