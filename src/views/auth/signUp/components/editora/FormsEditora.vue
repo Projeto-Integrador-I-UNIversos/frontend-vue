@@ -88,7 +88,7 @@ export default {
            console.log(response.data);
            this.handleSubmit()
            alert("Cadastro Editora concluido")
-
+           this.$router.push('/login')
        })
        .catch((error) => {
            console.error('Erro:', error);
@@ -106,7 +106,7 @@ export default {
     </div>
     <div class="text-white flex justify-center items-center py-[40px] ml-[40%] w-full">
       <form class="text-white w-[80vh] justify-left" @submit.prevent="loadUser">
-       <h1 class="text-white title">Seja Bem-Vindo!</h1>
+       <h1 class="text-white title">Seja Bem-Vinda, Editora!</h1>
        <h3 class="mb-4">Crie agora sua conta</h3>
        
           <div class="">
