@@ -2,9 +2,16 @@
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import '../style/FormsStyle.scss';
+import { Lock, Mail, Router } from 'lucide-vue-next';
+import Input from '@/components/ui/input/Input.vue';
 
 export default defineComponent({
     name: 'FormsLogin',
+    components: {
+      Lock,
+      Mail,
+      Input
+    },
     data() {
         return {
             email: '',
@@ -16,9 +23,9 @@ export default defineComponent({
     methods: {
         loadUser(){
             console.log('CLICK');
-            const URL = 'http://localhost:5000';
+            const URL = 'http://localhost:5001';
 
-            axios.post(`${URL}/usuario/login`, {
+            axios.post(`${URL}/login`, {
                 email: this.email,
                 senha: this.senha,
             })
@@ -41,13 +48,13 @@ export default defineComponent({
 
     <div class="formInputs">
       <div class="inputContainer">
-        <i class="material-icons icon">mail</i>
-        <input placeholder="E-mail" class="form-control" v-model="email"></input>
+        <Mail class="material-icons icon"/>
+        <Input placeholder="E-mail" class="form-control border-0" v-model="email"/>
       </div>
 
       <div class="inputContainer">
-        <i class="material-icons icon">lock</i>
-        <input placeholder="Senha" class="form-control" v-model="senha" required type="password"></input>
+        <Lock class="material-icons icon"/>
+        <Input placeholder="Senha" class="form-control border-0" v-model="senha" required type="password"/>
       </div>
 
     </div>
@@ -57,7 +64,7 @@ export default defineComponent({
         <Checkbox />
       </div>
       <div class="col forgotContainer">
-        <p class="forgotPassword">Esqueceu a senha?</p>
+        <p class="text-left mt-[-20px] ml-[13px] mb-[20px]">Esqueceu a senha?</p>
       </div>
     </div>
 
@@ -65,7 +72,9 @@ export default defineComponent({
       <button class="button" type="submit">Entrar</button>
     </div>
 
-    <p class="haveAccount">Ja possui uma conta? <Link to="/login" class="haveAccount">Entrar</Link></p>
+    <p class="haveAccount">Nao possui uma conta?</p>
+    <p>Cadastrar como <RouterLink to="/cadastro/editora" class="haveAccount">Editora</RouterLink></p>
+    <p>Cadastrar como <RouterLink to="/cadastro/escritor" class="haveAccount">Escritor</RouterLink></p>
   </form>
   </div>
 </template>

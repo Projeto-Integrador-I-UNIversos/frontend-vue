@@ -1,16 +1,52 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { Input } from '../../components/ui/input';
+import { Input } from '@/components/ui/input';
 import axios from 'axios';
-import Label from '../../components/ui/label/Label.vue';
+import Label from '@/components/ui/label/Label.vue';
 import Button from '@/components/ui/button/Button.vue';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+
+import banner from '@/assets/imagens/5432299.jpg'
 
 export default defineComponent({
     name: 'CadastrarObra',
     components: {
         Input,
         Label,
-        Button
+        Button,
+        DropdownMenu,
+        DropdownMenuContent,
+        DropdownMenuLabel,
+        DropdownMenuRadioGroup,
+        DropdownMenuRadioItem,
+        DropdownMenuSeparator,
+        DropdownMenuTrigger,
+        Checkbox,
+        Select,
+        SelectContent,
+        SelectGroup,
+        SelectItem,
+        SelectLabel,
+        SelectTrigger,
+        SelectValue,
     },
     data() {
         return {
@@ -23,7 +59,8 @@ export default defineComponent({
             idEscritor: 3,
             status: '',
             PdfLivro: null as File | null,
-            generos: ''
+            generos: '',
+            
         }
     },
     methods: {
@@ -62,48 +99,185 @@ export default defineComponent({
 
 
 <template>
-    <div class="pt-20 flex justify-center ">
-        <form class="form px-20 flex-center" @submit.prevent="loadUser">
+    <div class=" pt-20 flex justify-center bg-violet-500 h-[95vh]">
+       <div class="flex justify-center" >
+            <img src="@/assets/imagens/universe-5.svg" class="w-[100%] h-[100%] mr-[50px] mt-[-50px]" />
+       </div>
+        <form class=" px-20 flex-center rounded-[20px] pt-[10px] mb-[30px] w-[50%] mr-[6%]" @submit.prevent="loadUser">
 
-            <p class="text-2xl">Cadastrar novo Livro</p>
-            <div class="">
-            <Label class="flex text-left py-3" for="titulo text-black">Titulo</Label>
-            <Input type="text" placeholder="Titulo" v-model="titulo" class="input" required/>
-            </div>
-            <div class="flex flex-row">
-                <div class="w-96 pr-1">
-                    <Label class="flex text-left py-3" for="idioma">Idioma</Label>
-                    <Input type="text" placeholder="Idioma" v-model="idioma" class="input" required/>
+            <p class="text-4xl text-black mb-[10%]">Cadastrar novo Livro</p>
+            <div class="" >
+                <div  class="" >
+                    <div class="relative w-full  h-10 m-2 pr-4">
+                        <input v-model="titulo"
+                        class="peer w-full h-full bg-transparent text-black font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+                        placeholder=" " /><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-black 
+                            before:border-red-200 peer-focus:before:!border-black  after:border-black peer-focus:after:!border-black peer-focus:!rounded-[10px]"
+                            style="border-radius: 10px;">Titulo
+                        </label>
+                    </div>
                 </div>
-                <div class="w-96 pl-1">
-                    <Label class="flex text-left py-3" for="quantPaginas">Paginas</Label>
-                    <Input type="number" placeholder="Paginas" v-model="QuantPaginas" class="input" required/>
+                
+                <div class="px-2">
+                    <Label class="text-black flex text-left py-3" for="capaLivro">Capa Livro</Label>
+                    <Input id="capaLivro" type="file" @change="(e:any) => capaLivro = e.target.files[0]" class="input text-black" required/>
                 </div>
-            </div>
-            <div class="">
-            <Label class="flex text-left py-3" for="pais">Pais</Label>
-            <Input type="text" placeholder="Pais" v-model="pais" class="input" required/>
-            </div>
-            <div class="">
-            <Label class="flex text-left py-3" for="descricao">Descricao</Label>
-            <Input type="text" placeholder="Descricao" v-model="descricao" class="input" required/>
-            </div>
-            <div class="">
-            <Label class="flex text-left py-3" for="status">Status</Label>
-            <Input type="text" placeholder="Status" v-model="status" class="input" required/>
-            </div>
-            <Label class="flex text-left py-3" for="generos">Generos</Label>
-            <Input type="text" placeholder="Generos" v-model="generos" class="input" required/>
-            <div class="">
-            <Label class="flex text-left py-3" for="capaLivro">Capa Livro</Label>
-            <Input id="capaLivro" type="file" @change="(e:any) => capaLivro = e.target.files[0]" class="input" required/>
-            </div>
-            <div class="">
-                <Label class="flex text-left py-3" for="pdfLivro">PDF Livro</Label>
-            <Input id="pdfLivro" type="file" @change="(e:any) => PdfLivro = e.target.files[0]" class="input" required/>
-            </div>
-            <div class="pt-3">
-                <Button class="bg-indigo-500 button text-white w-32 hover:text-indigo-500" type="submit">Salvar</Button>
+                <div class="flex flex-row mt-2">
+                    <div class="relative w-full  h-10 m-2">
+                        <input v-model="idioma"
+                        class="peer w-full h-full bg-transparent text-black font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+                        placeholder=" " /><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-black 
+                            before:border-red-200 peer-focus:before:!border-black  after:border-black peer-focus:after:!border-black peer-focus:!rounded-[10px]"
+                            style="border-radius: 10px;">Idioma
+                        </label>
+                    </div>
+                    <div class="relative w-full  h-10 m-2">
+                        <input v-model="QuantPaginas" type="number"
+                        class="peer w-full h-full bg-transparent text-black font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+                        placeholder=" " /><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-black 
+                            before:border-red-200 peer-focus:before:!border-black  after:border-black peer-focus:after:!border-black peer-focus:!rounded-[10px]"
+                            style="border-radius: 10px;">Paginas
+                        </label>
+                    </div>
+                    <div class="relative w-full  h-10 m-2">
+                        <input v-model="pais"
+                        class="peer w-full h-full bg-transparent text-black font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+                        placeholder=" " /><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-black 
+                            before:border-red-200 peer-focus:before:!border-black  after:border-black peer-focus:after:!border-black peer-focus:!rounded-[10px]"
+                            style="border-radius: 10px;">Pais
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="relative w-full m-2 pr-4">
+                        <textarea v-model="descricao" rows="5" cols="50"
+                        class="peer w-full h-full bg-transparent text-black font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-black placeholder-shown:border-t-black border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-black focus:border-black"
+                        placeholder=" " ></textarea><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-black 
+                            before:border-red-200 peer-focus:before:!border-black  after:border-black peer-focus:after:!border-black peer-focus:!rounded-[10px]"
+                            style="border-radius: 10px;">Descricao
+                        </label>
+                    </div>
+                <div class="flex flex-row">
+                    <div class="w-96 pl-1">
+                        <Label class="text-black flex text-left py-3" for="status">Status</Label>
+                        <!--Input type="text" placeholder="Status" v-model="status" class="input text-black" required/-->
+                        <Select class="bg-white w-[100px]" >
+                            <SelectTrigger class="w-[180px] text-black">
+                            <SelectValue placeholder="Escolha o status" class="text-black"/>
+                            </SelectTrigger>
+                            <SelectContent class="bg-white">
+                            <SelectGroup>
+                                <SelectLabel>status</SelectLabel>
+                                <SelectItem value="concluido">
+                                Concluido
+                                </SelectItem>
+                                <SelectItem value="andamento">
+                                Em andamento
+                                </SelectItem>
+                            </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    </div>
+                    <!--div class="w-96 pl-2">
+                        <Label class="text-black flex text-left py-3 text-black" for="generos">Generos</Label>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger as-child>
+                            <Button variant="outline" class="w-full text-black">
+                                
+                            </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent class="w-56 bg-white">
+                            <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuRadioGroup v-model="generos">
+                                <DropdownMenuRadioItem value="top">
+                                Top
+                                </DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value="bottom">
+                                Bottom
+                                </DropdownMenuRadioItem>
+                                <DropdownMenuRadioItem value="right">
+                                Right
+                                </DropdownMenuRadioItem>
+                            </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                                    
+                    </div-->
+                </div>
+                
+                <div class="px-2">
+                    <Label class="text-black flex text-left py-3" for="pdfLivro">PDF Livro</Label>
+                    <Input id="pdfLivro" type="file" @change="(e:any) => PdfLivro = e.target.files[0]" class="input text-black placeholder-black" required/>
+                </div>
+                <div class="pt-3">
+                    <Button class="bg-indigo-500 button text-black w-32 hover:text-indigo-500 text-white" type="submit">Salvar</Button>
+                </div>
             </div>
         </form>
     </div>
@@ -115,10 +289,35 @@ export default defineComponent({
 }
 
 .input {
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
 .button {
     border-radius: 10px;
 }
+
+.banner {
+    background-image: url("@/assets/imagens/5432299.jpg");
+}
+
+.input-group input {
+  background: transparent;
+}
+
+.input-group label {
+  position: relative;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #fff;
+  padding: 0 5px;
+  pointer-events: none;
+}
+
+.input-group input:focus~label {
+background: #000;
+font-size: 12px;
+}
+
 </style>

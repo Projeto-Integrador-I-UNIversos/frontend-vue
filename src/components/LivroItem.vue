@@ -22,8 +22,9 @@ export default defineComponent({
   },
   props: {
     titulo: { type: String, required: true },
+    escritor: {type: String, required: true},
     capaLivro: { type: String, required: true },
-    idLivro: { type: String, required: true }
+    idLivro: { type: Number, required: true }
   },
   computed: {
     caminhoCompletoCapa(): string {
@@ -46,12 +47,13 @@ export default defineComponent({
     <div>
     </div>
   </div-->
-  <div class="flex justify-center p-0 m-0 w-40">
-  <div class="mt-5 p-0">
+  <div class="flex justify-center p-0 m-0 w-44 z-1">
+  <div class="mt-5 p-0 justify-center flex flex-col">
     <img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/>
     <div class="">
-      <h3 class="flex text-center pl-5 pt-2 pb-1">{{ titulo }}</h3>
-      <Button class="border-indigo-600 text-sm w-36 button h-8">Ver Livro</Button>
+      <h3 class="flex text-center pl-5 pt-2 pb-1 text-[13px]">{{ titulo }}</h3>
+      <p class="text-[11px] text-center ml-2 mb-2">{{ escritor }}</p>
+      <Button class="border-indigo-600 text-sm w-36 button h-8 ml-3 hover:bg-indigo-600 hover:text-white">Ver Livro</Button>
     </div>
   </div>
   </div>
