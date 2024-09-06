@@ -33,6 +33,11 @@ const routes: Array<RouteRecordRaw> = [
             pdfUrl: typeof pdfUrl === 'string' ? decodeURIComponent(pdfUrl) : ''
           };
         }
+      },
+      <RouteRecordRaw> {
+        path: 'livro',
+        name: 'Escritor.Livro',
+        component: () => import('@/views/app/livros/Obra.vue')
       }
     ]
   },

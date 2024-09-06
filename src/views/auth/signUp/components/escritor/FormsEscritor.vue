@@ -195,7 +195,8 @@ export default defineComponent({
                 <h3 class="mb-4 mb-10">Crie agora sua conta</h3>
 
                 <div class="">
-                    <div class="relative w-full h-10 m-2">
+                    <div class="flex" >
+                        <div class="relative w-full h-10 m-2">
                             <input v-model="nome"
                             class="peer w-full h-full bg-transparent text-white font-sans 
                             font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
@@ -217,6 +218,8 @@ export default defineComponent({
                                 style="border-radius: 10px;">Nome
                             </label>
                         </div>
+                    </div>
+                   
                     <div class="flex" > 
 
                         <div class="relative w-full h-10 m-2">
