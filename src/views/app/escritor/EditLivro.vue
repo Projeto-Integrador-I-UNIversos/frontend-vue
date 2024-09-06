@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10">
+  <div class="p-10 bg-[#fafafa]">
     <h2>Editar Livro</h2>
     <form @submit.prevent="atualizarLivro">
       <div>

@@ -1,6 +1,6 @@
 <template>
   <div class="text-white h-screen w-60 pl-3 pt-4">
-  <div class="border-[2px] border-white h-[96vh] px-6 bg-[#5402b6] rounded-[20px]">
+  <div class="border-[2px] border-white h-[96vh] px-6 bg-[#7325bd] rounded-[20px]">
     <div class="mt-8">
     <ul class="space-y-4">
       <li class="mb-32">
