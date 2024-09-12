@@ -33,7 +33,7 @@ export default defineComponent({
     <main class="">
       <div class="h-screen w-screen flex grid grid-flow-row-dense grid-cols-3 grid-rows-3">
         <Sidebar class="row-span-2 absolute menu z-50"/>
-          <div class="col-span-3 ml-60">
+          <div class="col-span-3 ml-60 bg-green-300">
             <Header class="fixed"/>
             <div class="mt-10">
               <RouterView/>

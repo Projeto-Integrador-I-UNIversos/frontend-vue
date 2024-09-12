@@ -35,10 +35,11 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       <RouteRecordRaw> {
-        path: 'livro',
-        name: 'Escritor.Livro',
-        component: () => import('@/views/app/livros/Obra.vue')
-      }
+        path: 'editora',
+        name: 'Escritor.Editora',
+        component: () => import('@/views/app/escritor/Editora.vue')
+   },
+      
     ]
   },
   <RouteRecordRaw> {
@@ -52,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/app/editora/MainContent.vue'),
        
       },
+      <RouteRecordRaw> {
+        path: 'livro',
+        name: 'Escritor.Livro',
+        component: () => import('@/views/app/livros/Obra.vue')
+      }
     ]
   },
   <RouteRecordRaw> {

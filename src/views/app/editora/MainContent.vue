@@ -316,7 +316,7 @@ export default defineComponent({
           <CarouselContent class="w-[170vh]">
             <CarouselItem v-for="(livro, index) in data" :key="livro.id" class="md:basis-1/2 lg:basis-40 mx-4 ">
               <div class="py-1 px-3">
-                <Card class="w-20 border-0	">
+                <Card class="w-56 border-0	">
                   <CardContent class="flex aspect-square items-center justify-center p-6">
                     <LivroItem 
                       class="w-44 h-60 mb-[40px]"

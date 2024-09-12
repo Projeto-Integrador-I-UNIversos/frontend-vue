@@ -47,15 +47,14 @@ export default defineComponent({
     <div>
     </div>
   </div-->
-  <div class="flex justify-center p-0 m-0 w-44 z-1">
-  <div class="mt-5 p-0 justify-center flex flex-col">
-    <img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/>
-    <div class="">
-      <h3 class="flex text-center pl-5 pt-2 pb-1 text-[13px]">{{ titulo }}</h3>
-      <p class="text-[11px] text-center ml-2 mb-2">{{ escritor }}</p>
-      <Button class="border-indigo-600 text-sm w-36 button h-8 ml-3 hover:bg-indigo-600 hover:text-white">Ver Livro</Button>
+  <div class="flex justify-center w-44 z-1 px-3 py-3 text-left cursor-pointer">
+    <div class=" justify-center flex flex-col">
+      <img :src="caminhoCompletoCapa" alt="Capa do livro" width="100%" class="rounded-[15px] p-2"/>
+      <div class="ml-2">
+        <h3 class="flex pb-1 text-[13px]">{{ titulo }}</h3>
+        <p class="text-[11px] mb-2">{{ escritor }}</p>
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
