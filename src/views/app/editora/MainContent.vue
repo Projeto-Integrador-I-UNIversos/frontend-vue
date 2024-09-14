@@ -39,167 +39,167 @@ export default defineComponent({
   },
   data() {
     return {
-      livros: [] as Livro[],
-      id: '' as string | null,
-      data: [
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
+        livros: [] as Livro[],
+        id: '' as string | null,
+        data: [
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
 
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          escritor: "Antoine de Saint-Exupery",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-    ],
-    generos: [
-      {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-        {
-          titulo: "O pequeno Principe",
-          capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-          id: 1 as number
-        },
-    ]
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+          {
+            titulo: "O pequeno Principe",
+            escritor: "Antoine de Saint-Exupery",
+            capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+            id: 1 as number
+          },
+        ],
+        generos: [
+          {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+            {
+              titulo: "O pequeno Principe",
+              capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
+              id: 1 as number
+            },
+        ]
     }  
   },
   mounted() {

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import Label from '@/components/ui/label/Label.vue';
@@ -26,8 +26,13 @@ import {
 import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input'
 
 import banner from '@/assets/imagens/5432299.jpg'
-import { ref } from 'vue';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible/'
 
+const isOpen = ref(false)
 
 export default defineComponent({
     name: 'CadastrarObra',
@@ -54,68 +59,88 @@ export default defineComponent({
         TagsInputInput, 
         TagsInputItem, 
         TagsInputItemDelete, 
-        TagsInputItemText
+        TagsInputItemText,
+        Collapsible,
+        CollapsibleContent,
+        CollapsibleTrigger,
     },
-    data() {
+    data() {``
         return {
-            titulo: '',
-            idioma: '',
-            QuantPaginas: '',
-            pais: '',
-            descricao: '',
-            capaLivro: null as File | null,
-            idEscritor: 3,
-            status: '',
-            PdfLivro: null as File | null,
-            generos: '',
-            
+            isOpen,
+            Entity: {
+                titulo: '',
+                idioma: '',
+                QuantPaginas: '',
+                pais: '',
+                descricao: '',
+                capaLivro: null as File | null,
+                idEscritor: 3,
+                status: '',
+                PdfLivro: null as File | null,
+                selectedGeneros: [],
+            },
+            generos: [
+                {name: 'Ficção'},
+                {name: 'Não-ficção'},
+                {name: 'Ficção Científica'},
+                {name: 'Fantasia'},
+                {name: 'Mistério'},
+                {name: 'Suspense'},
+                {name: 'Romance'},
+                {name: 'Ficção Histórica'},
+                {name: 'Biografia'},
+                {name: 'Autoajuda'},
+                {name: 'Terror'},
+                {name: 'Aventura'},
+                {name: 'Poesia'},
+                {name: 'Drama'},
+                {name: 'Memórias'},
+                {name: 'Filosofia'},
+                {name: 'Psicologia'},
+                {name: 'Crime'},
+                {name: 'Quadrinhos'},
+                {name: 'Juvenil'}
+            ],
         }
     },
     methods: {
         async loadUser() {
             console.log('CLICK');
             const URL = 'http://localhost:5001';
-            console.log(this.titulo);
 
-            // Criar um FormData para enviar os dados
-            const formData = new FormData();
-            formData.append('titulo', this.titulo);
-            formData.append('idioma', this.idioma);
-            formData.append('QuantPaginas', this.QuantPaginas);
-            formData.append('pais', this.pais);
-            formData.append('descricao', this.descricao);
-            formData.append('capaLivro', this.capaLivro as File);
-            formData.append('idEscritor', this.idEscritor.toString());
-            formData.append('status', this.status);
-            formData.append('PdfLivro', this.PdfLivro as File);
+             // esse e um pouco mais complicado,
+            // aqui eu formato os dados pra ficar no padrao que aceite arquivos
+            // const formData = new FormData();
+        //     formData.append('titulo', this.Entity.titulo);
+        //     formData.append('idioma', this.Entity.idioma);
+        //     formData.append('QuantPaginas', this.Entity.QuantPaginas);
+        //     formData.append('pais', this.Entity.pais);
+        //     formData.append('descricao', this.Entity.descricao);
+        //     formData.append('capaLivro', this.Entity.capaLivro as File);
+        //     formData.append('idEscritor', this.Entity.idEscritor.toString());
+        //     formData.append('status', this.Entity.status);
+        //     formData.append('PdfLivro', this.Entity.PdfLivro as File);
 
-            try {
-                const response = await axios.post(`${URL}/cadastroLivro`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                console.log(response.data);
-                alert("Cadastro Livro concluido")
-            } catch (error) {
-                console.error('Erro:', error);
-            }
+        //    // como nao utilizei service, usei o axios aqui mesmo
+        //     try {
+        //         const response = await axios.post(`${URL}/cadastroLivro`, formData, {
+        //             headers: {
+        //                 // aqui eu especifico que vou usar o formData
+        //                 // se nao funcionar da mesma forma, voce pode alterar como desejar,
+        //                 // mas e pra funcionar
+        //                 'Content-Type': 'multipart/form-data'
+        //             }
+        //         });
+        //         console.log(response.data);
+        //         alert("Cadastro Livro concluido")
+        //     } catch (error) {
+        //         console.error('Erro:', error);
+        //         alert("Cadastro Livro nao concluido")
+        //     }
         }
     },
     setup() {
-        const modelValue = ref<string[]>([])
-
-        const frameworks = [
-            { value: 'next.js', label: 'Next.js' },
-            { value: 'sveltekit', label: 'SvelteKit' },
-            { value: 'nuxt', label: 'Nuxt' },
-            { value: 'remix', label: 'Remix' },
-            { value: 'astro', label: 'Astro' },
-        ]
-        return {
-            frameworks, 
-            modelValue
-        } 
+        
     }
 })
 </script>
@@ -132,21 +157,22 @@ export default defineComponent({
             <div class="" >
                 <div  class="" >
                     <div class="relative  h-10 m-2">
-                        <input v-model="titulo"
-                        class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " /><label
-                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                        before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        <input v-model="Entity.titulo"
+                            class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                            placeholder=" " />
+                        <label
+                            class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                            peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                            peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                            peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                            before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                            peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                            peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                            after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                            peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                             peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-indigo-400 
                             before:border-red-200 peer-focus:before:!border-indigo-400  after:border-indigo-400 peer-focus:after:!border-indigo-400 peer-focus:!rounded-[10px]"
                             style="border-radius: 10px;">Titulo
@@ -156,7 +182,7 @@ export default defineComponent({
                 
                 <div class="px-2">
                     <Label class="text-black flex text-left py-3" for="capaLivro">Capa Livro</Label>
-                    <Input id="capaLivro" type="file" @change="(e:any) => capaLivro = e.target.files[0]" class="input text-black peer w-full h-full bg-transparent text-black font-sans 
+                    <Input id="capaLivro" type="file" @change="(e:any) => Entity.capaLivro = e.target.files[0]" class="input text-black peer w-full h-full bg-transparent text-black font-sans 
                         fon bg-[#f7effe] t-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
                         placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
                         focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
@@ -164,42 +190,44 @@ export default defineComponent({
                 </div>
                 <div class="flex flex-row mt-2">
                     <div class="relative w-full  h-10 m-2">
-                        <input v-model="idioma"
-                        class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " /><label
-                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                        before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        <input v-model="Entity.idioma"
+                            class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                            placeholder=" " />
+                        <label
+                            class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                            peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                            peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                            peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                            before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                            peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                            peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                            after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                            peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                             peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-indigo-400 
                             before:border-red-200 peer-focus:before:!border-indigo-400  after:border-indigo-400 peer-focus:after:!border-indigo-400 peer-focus:!rounded-[10px]"
                             style="border-radius: 10px;">Idioma
                         </label>
                     </div>
                     <div class="relative w-full  h-10 m-2">
-                        <input v-model="pais"
-                        class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " /><label
-                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                        before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        <input v-model="Entity.pais"
+                            class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                            placeholder=" " />
+                        <label
+                            class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                            peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                            peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                            peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                            before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                            peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                            peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                            after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                            peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                             peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-indigo-400 
                             before:border-red-200 peer-focus:before:!border-indigo-400  after:border-indigo-400 peer-focus:after:!border-indigo-400 peer-focus:!rounded-[10px]"
                             style="border-radius: 10px;">Pais
@@ -208,21 +236,22 @@ export default defineComponent({
                 </div>
                 <div class="flex flex-row mt-2">
                     <div class="relative w-full h-10 m-2 mt-9">
-                        <input v-model="QuantPaginas" type="number"
-                        class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " /><label
-                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                        before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                        <input v-model="Entity.QuantPaginas" type="number"
+                            class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                            placeholder=" " />
+                        <label
+                            class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                            peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                            peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                            peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                            before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                            peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                            peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                            after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                            peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                             peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-indigo-400 
                             before:border-red-200 peer-focus:before:!border-indigo-400  after:border-indigo-400 peer-focus:after:!border-indigo-400 peer-focus:!rounded-[10px]"
                             style="border-radius: 10px;">Paginas
@@ -231,12 +260,13 @@ export default defineComponent({
               
                     <div class="w-96 pl-1">
                         <Label class="text-black flex text-left py-3" for="status">Status</Label>
-                        <!--Input type="text" placeholder="Status" v-model="status" class="input text-black" required/-->
-                        <Select class="bg-white w-[100px] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400 border-indigo-400"
-                        placeholder=" " >
+                        <!--Input type="text" placeholder="Status" v-model="Entity.status" class="input text-black" required/-->
+                        <Select v-model="Entity.status"
+                            class="bg-white w-[100px] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400 border-indigo-400"
+                            placeholder=" " >
                             <SelectTrigger class="w-[180px] text-black border-indigo-400 bg-[#f7effe]">
                             <SelectValue placeholder="Escolha o status" class="text-black border-indigo-400"/>
                             </SelectTrigger>
@@ -255,9 +285,9 @@ export default defineComponent({
                     </div>
                 </div>
                 <!--div>
-                    <TagsInput class="px-0 gap-0 w-80" :model-value="modelValue">
+                    <TagsInput class="px-0 gap-0 w-80" :model-vEntity.alue="modelVaEntity.lue">
                         <div class="flex gap-2 flex-wrap items-center px-3">
-                        <TagsInputItem v-for="item in modelValue" :key="item" :value="item">
+                        <TagsInputItem v-for="item in modelVaEntity.lue" :key="item" :value="item">
                             <TagsInputItemText />
                             <TagsInputItemDelete />
                         </TagsInputItem>
@@ -266,59 +296,47 @@ export default defineComponent({
                 </TagsInput>
                 </div-->
                 <div class="relative m-2 pr-4">
-                        <textarea v-model="descricao" rows="5" cols="50"
-                        class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" "></textarea><label
+                        <textarea v-model="Entity.descricao" rows="5" cols="50"
+                            class="bg-[#f7effe] peer w-full h-full bg-transparent text-black font-sans 
+                            font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                            placeholder=" "></textarea>
+                        <label
                         class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                        peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                        peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                        before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                            peer-placeholder-shown:text-black leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                            peer-disabled:peer-placeholder-shown:text-black transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                            peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                            before:mr-3 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                            peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                            peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                            after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                            peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                             peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-black peer-focus:text-indigo-400 
                             before:border-red-200 peer-focus:before:!border-indigo-400  after:border-indigo-400 peer-focus:after:!border-indigo-400 peer-focus:!rounded-[10px]"
                             style="border-radius: 10px;">Descricao
                         </label>
                     </div>
                 <div class="flex flex-row">
-                
-                    <!--div class="w-96 pl-2">
-                        <Label class="text-black flex text-left py-3 text-black" for="generos">Generos</Label>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger as-child>
-                            <Button variant="outline" class="w-full text-black">
-                                
-                            </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent class="w-56 bg-white">
-                            <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuRadioGroup v-model="generos">
-                                <DropdownMenuRadioItem value="top">
-                                Top
-                                </DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value="bottom">
-                                Bottom
-                                </DropdownMenuRadioItem>
-                                <DropdownMenuRadioItem value="right">
-                                Right
-                                </DropdownMenuRadioItem>
-                            </DropdownMenuRadioGroup>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                    <Collapsible v-model:open="isOpen">
+                        <CollapsibleTrigger>Cique aqui para ver todos os generos literarios</CollapsibleTrigger>
+                        <CollapsibleContent>
+                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-2 pl-10">
+                                <div v-for="(genero, index) in generos" :key="index" class="flex" >
+                                    <Checkbox v-model="selectedGeneros"
                                     
-                    </div-->
+                                    :value="genero.name" ass="mr-2" />
+                                    <p>{{ genero.name }}</p>
+                                </div>
+                            </div>
+                            
+                        </CollapsibleContent>
+                    </Collapsible>
                 </div>
                 
                 <div class="px-2">
                     <Label class="text-black flex text-left py-3" for="pdfLivro">PDF Livro</Label>
-                    <Input id="pdfLivro" type="file" @change="(e:any) => PdfLivro = e.target.files[0]" 
+                    <Input id="pdfLivro" type="file" @change="(e:any) => Entity.PdfLivro = e.target.files[0]" 
                         class="bg-[#f7effe] peer w-full h-full text-black font-sans 
                         font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
                         placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 

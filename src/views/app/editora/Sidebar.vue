@@ -1,58 +1,52 @@
 <template>
-  <div class="bg-white text-white h-screen w-60 py-3 pl-3">
-  <div class="border-[2px] border-inherit rounded-[20px] h-[96vh] px-4">
+  <div class="bg-white text-white h-screen w-60 py-3 pl-3 ">
+  <div class="border-[2px] border-inherit rounded-[20px] bg-[#7325bd] text-white h-[96vh] px-4">
     <div class="mt-8">
     <ul class="space-y-4">
       <li>
-        <AlignJustify color="#000" class="mb-32"/>
+        <AlignJustify color="#FFF" class="mb-32"/>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-         <House color="#000"/>
-          <span class="text-gray-700">Home</span>
+         <House color="#FFF"/>
+          <span class="text-white">Home</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-         <MessageCircleMore color="#000"/>
-          <span class="text-gray-700">Mensagens</span>
+         <MessageCircleMore color="#FFF"/>
+          <span class="text-white">Mensagens</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <BellDot color="#000"/>
-          <span class="text-gray-700">Notifications</span>
+          <BellDot color="#FFF"/>
+          <span class="text-white">Notifications</span>
           <span class="bg-red-500 text-white rounded-full px-2 py-1 ml-2">2</span>
         </a>
       </li>
       <li>
+        <RouterLink to="editora/list-livros" class="flex items-center gap-4">
+          <UsersRound color="#FFF"/>
+          <span class="text-white">Livros</span>
+        </RouterLink>
+      </li>
+      <li>
         <a href="#" class="flex items-center gap-4">
-          <UsersRound color="#000"/>
-          <span class="text-gray-700">Escritores</span>
+          <Heart color="#FFF"/>
+          <span class="text-white">Favoritos</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <BookOpenText color="#000"/>
-          <span class="text-gray-700">Livros</span>
+          <Settings color="#FFF"/>
+          <span class="text-white">Configuracoes</span>
         </a>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
-          <Heart color="#000"/>
-          <span class="text-gray-700">Favoritos</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center gap-4">
-          <Settings color="#000"/>
-          <span class="text-gray-700">Configuracoes</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="flex items-center gap-4">
-          <UserRound color="#000"/>
-          <span class="text-gray-700">Perfil</span>
+          <UserRound color="#FFF"/>
+          <span class="text-white">Perfil</span>
         </a>
       </li>
     </ul>

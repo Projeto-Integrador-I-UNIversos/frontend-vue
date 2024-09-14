@@ -35,7 +35,7 @@ export default defineComponent({
         <Sidebar class="row-span-2 absolute menu z-50"/>
           <div class="col-span-3 ml-60">
             <Header class="fixed"/>
-            <div class="mt-10">
+            <div class="flex pt-14 px-10 pb-14 bg-[#f9f9f9]">
               <RouterView/>
               </div>
            

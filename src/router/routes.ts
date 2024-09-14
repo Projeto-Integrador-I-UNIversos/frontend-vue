@@ -38,8 +38,12 @@ const routes: Array<RouteRecordRaw> = [
         path: 'editora',
         name: 'Escritor.Editora',
         component: () => import('@/views/app/escritor/Editora.vue')
-   },
-      
+      },
+      <RouteRecordRaw> {
+        path: 'list-editora',
+        name: 'Escritor.List.Editora',
+        component: () => import('@/views/app/escritor/ListEditora.vue')
+      },
     ]
   },
   <RouteRecordRaw> {
@@ -54,10 +58,15 @@ const routes: Array<RouteRecordRaw> = [
        
       },
       <RouteRecordRaw> {
-        path: 'livro',
-        name: 'Escritor.Livro',
+        path: 'livro/:id',
+        name: 'Editora.Livro',
         component: () => import('@/views/app/livros/Obra.vue')
-      }
+      },
+      <RouteRecordRaw> {
+        path: 'list-livros',
+        name: 'Editora.List.Livros',
+        component: () => import('@/views/app/editora/ListObras.vue')
+      },
     ]
   },
   <RouteRecordRaw> {

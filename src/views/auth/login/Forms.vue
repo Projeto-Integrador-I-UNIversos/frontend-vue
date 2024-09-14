@@ -5,6 +5,8 @@ import { Lock, Mail, Router } from 'lucide-vue-next';
 import Input from '@/components/ui/input/Input.vue';
 import  universe from '@/assets/imagens/header-img.svg'
 import Button from '@/components/ui/button/Button.vue';
+import router from '@/router';
+
 export default defineComponent({
     name: 'Forms',
     components: {
@@ -17,7 +19,8 @@ export default defineComponent({
         return {
             email: '',
             senha: '',
-            universe
+            universe,
+            router
         }
     },
     mounted(){
@@ -27,12 +30,28 @@ export default defineComponent({
             console.log('CLICK');
             const URL = 'http://localhost:5001';
 
+            // caso de errado, verifica no inspecionar se os dados conferem com oq vc 
+            // digitou, se faltar algo nesse log vc me avisa
+            console.log(`dados: email ${this.email}, senha ${this.senha}`);
+            
+
             axios.post(`${URL}/login`, {
                 email: this.email,
                 senha: this.senha,
             })
             .then((response) => {
                 console.log(response.data);
+                // implementar logica que verifica se e editora ou escritor
+                // algo como 
+                /**
+                 * if (tipo == 'escritor') 
+                 *      router.push({ name: 'Escritor'})
+                 * else if (tipo == 'editora') 
+                 *      router.push({name: 'Editora'})
+                 * else 
+                 *      router.push({name: 'Admin'})
+                 */
+
             })
             .catch((error) => {
                 console.error('Erro:', error);
@@ -111,8 +130,8 @@ export default defineComponent({
             </div>
             </div>
 
-            <div class="mt-10 mb-2">
-                <Button class="text-white bg-white text-black rounded-[10px] w-[200px] hover:bg-white" type="submit">Entrar</Button>
+            <div class="mt-10 mb-2 w-full flex justify-center">
+                <Button class="w-[50vh] text-white bg-white text-black rounded-[10px] hover:bg-white" type="submit">Entrar</Button>
             </div>
 
             <p class="ml-3 mt-4">Nao possui uma conta?</p>

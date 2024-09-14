@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import router from '@/router';
+
 export default defineComponent({
   name: 'LivroItem',
   components: {
@@ -34,6 +36,11 @@ export default defineComponent({
       
       return caminho;
     }
+  },
+  mathods: {
+    goTo() {
+      router.push({path: `livro/${this.idLivro}`})
+    }
   }
 })
 </script>
@@ -47,7 +54,7 @@ export default defineComponent({
     <div>
     </div>
   </div-->
-  <div class="flex justify-center w-44 z-1 px-3 py-3 text-left cursor-pointer">
+  <RouterLink :to="{name: 'Editora.Livro', params: {id : `${idLivro}`}}" class="flex justify-center w-44 z-1 px-3 py-3 text-left cursor-pointer text-black">
     <div class=" justify-center flex flex-col">
       <img :src="caminhoCompletoCapa" alt="Capa do livro" width="100%" class="rounded-[15px] p-2"/>
       <div class="ml-2">
@@ -55,7 +62,7 @@ export default defineComponent({
         <p class="text-[11px] mb-2">{{ escritor }}</p>
       </div>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style>

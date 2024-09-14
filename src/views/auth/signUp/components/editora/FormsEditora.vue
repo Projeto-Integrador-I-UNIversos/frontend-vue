@@ -6,6 +6,7 @@ import Input from '@/components/ui/input/Input.vue';
 import Label from '../../../../../components/ui/label/Label.vue';
 import  universe from '@/assets/imagens/header-img.svg'
 import Button from '@/components/ui/button/Button.vue';
+import { UserService } from '@/service/user.service';
 
 export default {
     components: {
@@ -16,32 +17,39 @@ export default {
    },
    data() {
      return {
-       selectedOption: 'option1', 
-       showForm: true,
-       nome: '',
-       tipo :'' ,
-       email: '',
-       senha: '',
-       cnpj:'',
-       telefone:'',
-       linkedin:'',
-       siteInstitucional:'',
-       twitter:'',
-       pais:'',
-       descricao:'',
-       instagram:'',
-       universe
-     };
+          selectedOption: 'option1', 
+          Entity: {
+              email: '',
+              senha: '',
+              tipo :'' ,
+              editora_dados: {
+                    nome: '',
+                    cnpj:'',
+                    telefone:'',
+                    linkedin:'',
+                    siteInstitucional:'',
+                    twitter:'',
+                    pais:'',
+                    descricao:'',
+                    instagram:'',
+                }
+          },
+          confirmSenha: '',
+          showForm: true,
+          
+          
+          universe
+        };
    },
    methods: {
      handleOptionChange(option:any) {
        if (this.selectedOption === option) {
          this.selectedOption = '';
          console.log('op 1');
-         this.tipo = 'escritor' 
+         this.Entity.tipo = 'escritor' 
        } else {
          this.selectedOption = option; 
-         this.tipo = 'editora'
+         this.Entity.tipo = 'editora'
        }
      },
      handleSubmit() {
@@ -56,43 +64,30 @@ export default {
          return this.selectedOption
      },
      async loadUser() {
+          const URL = 'http://localhost:5001'; 
+          let EntityCopy = JSON.parse(JSON.stringify(this.Entity));
 
-     //const tipo = await this.handleSubmit()
-     //console.log(tipo);
-     
-      
-       const URL = 'http://localhost:5001';
-        console.log(this.email);
-        console.log(this.senha);
-        console.log(this.nome);
-        console.log(this.email); 
-        
-       axios.post(`${URL}/cadastro`, {
-           email: this.email,
-           senha: this.senha,
-           tipo: 'editora',
-           editora_dados :{
-              nome: this.nome,
-              cnpj: this.cnpj,
-              telefone: this.telefone,
-              instagram: this.instagram,
-              linkedin: this.linkedin,
-              siteInstitucional: this.siteInstitucional,
-              twitter: this.twitter,
-              pais: this.pais,
-              descricao: this.descricao
-           }
+          // caso de errado, verifica no inspecionar se os dados conferem com oq vc 
+          // digitou, se faltar algo no EntityCopy vc me avisa
+          console.log('dados: ', EntityCopy);
           
-       })
-       .then((response) => {
-           console.log(response.data);
-           this.handleSubmit()
-           alert("Cadastro Editora concluido")
-           this.$router.push('/login')
-       })
-       .catch((error) => {
-           console.error('Erro:', error);
-       });
+            
+          if (EntityCopy.senha == this.confirmSenha) {
+              // caso nao encontre, descomente a linha do axios
+              //axios.post(`${URL}/cadastro`, EntityCopy)
+              // e comente a linha abaixo
+              UserService.cadastrar(EntityCopy)
+                  .then((response) => {
+                      console.log(response.data);
+                      this.handleSubmit()
+                      alert("Cadastro Editora concluido")
+                      this.$router.push('/login')
+                  })
+                  .catch((error) => {
+                        alert("Cadastro Editora nao pode ser concluido")
+                        console.error('Erro:', error);
+                  });
+          }
      }
    },
  };
@@ -112,7 +107,7 @@ export default {
           <div class="">
             <div class="flex" > 
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="nome"
+                    <input v-model="Entity.editora_dados.nome"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -134,7 +129,7 @@ export default {
                 </div>
                           
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="email"
+                    <input v-model="Entity.email"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -158,7 +153,7 @@ export default {
               
               <div class="text-white flex">
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="pais"
+                    <input v-model="Entity.editora_dados.pais"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -180,7 +175,7 @@ export default {
                 </div>
                 
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="cnpj"
+                    <input v-model="Entity.editora_dados.cnpj"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -202,7 +197,7 @@ export default {
                 </div>
               </div>
               <div class="relative w-full h-10 m-2 pr-4">
-                    <input v-model="telefone"
+                    <input v-model="Entity.editora_dados.telefone"
                     class="peer w-full  h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -224,7 +219,7 @@ export default {
                 </div>
               <div class="text-white flex">
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="linkedin"
+                    <input v-model="Entity.editora_dados.linkedin"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -245,7 +240,7 @@ export default {
                     </label>
                 </div>
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="siteInstitucional"
+                    <input v-model="Entity.editora_dados.siteInstitucional"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -268,7 +263,7 @@ export default {
               </div>
               <div class="text-white flex">
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="twitter"
+                    <input v-model="Entity.editora_dados.twitter"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -289,7 +284,7 @@ export default {
                     </label>
                 </div>
                 <div class="relative w-full h-10 m-2">
-                    <input v-model="instagram"
+                    <input v-model="Entity.editora_dados.instagram"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -312,7 +307,7 @@ export default {
               </div>
       
               <div class="relative w-full m-2 pr-4">
-                    <textarea v-model="descricao" rows="5" cols="50"
+                    <textarea v-model="Entity.editora_dados.descricao" rows="5" cols="50"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -334,7 +329,7 @@ export default {
                 </div>
               <div>
                 <div class="relative w-full h-10 m-2 pr-4">
-                    <input v-model="senha"
+                    <input v-model="Entity.senha"
                     class="peer w-full h-full bg-transparent text-white font-sans 
                     font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
                     placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
@@ -356,26 +351,29 @@ export default {
                 </div>
         
                 <div class="relative w-full h-10 m-2 pr-4">
-                    <input v-model="nome"
-                    class="peer w-full h-full bg-transparent text-white font-sans 
-                    font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
-                    placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
-                    focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
-                    placeholder=" " /><label
-                    class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
-                    peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
-                    peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
-                    peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
-                    before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
-                      peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
-                      peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
-                      after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
-                      peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
+                    <input v-model="confirmSenha"
+                        class="peer w-full h-full bg-transparent text-white font-sans 
+                        font-normal outline outline-0 focus:outline-0 disabled:bg-white disabled:border-0 transition-all placeholder-shown:border 
+                        placeholder-shown:border-white placeholder-shown:border-t-white border focus:border-2 border-t-transparent 
+                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-white focus:border-white"
+                        placeholder=" " /><label
+                        class=" flex w-full h-full select-none pointer-events-none absolute left-0 font-normal !overflow-visible truncate 
+                        peer-placeholder-shown:text-white leading-tight peer-focus:leading-tight peer-disabled:text-transparent 
+                        peer-disabled:peer-placeholder-shown:text-white transition-all -top-1.5 peer-placeholder-shown:text-sm text-[11px]
+                        peer-focus:text-[11px] before:content[' '] before:block before:box-border before:w-2.5 before:h-1.5 before:mt-[6.5px] 
+                        before:mr-1 peer-placeholder-shown:before:border-transparent before:rounded-tl-[10px] before:border-t
+                        peer-focus:before:border-t-2 before:border-l peer-focus:before:border-l-2 before:pointer-events-none before:transition-all 
+                        peer-disabled:before:border-transparent after:content[' '] after:block after:flex-grow after:box-border after:w-2.5 after:h-1.5
+                        after:mt-[6.5px] after:ml-1 peer-placeholder-shown:after:border-transparent after:rounded-tr-[10px] after:border-t 
+                        peer-focus:after:border-t-2 after:border-r peer-focus:after:border-r-2 after:pointer-events-none after:transition-all
                         peer-disabled:after:border-transparent peer-placeholder-shown:leading-[3.75] text-white peer-focus:text-white 
                         before:border-red-200 peer-focus:before:!border-white  after:border-white peer-focus:after:!border-white peer-focus:!rounded-[10px]"
                         style="border-radius: 10px;">Confirmar Senha
                     </label>
                 </div>
+              </div>
+              <div v-if="Entity.senha !== confirmSenha" >
+                <p>Senhas nao conferem</p>
               </div>
           </div>
 

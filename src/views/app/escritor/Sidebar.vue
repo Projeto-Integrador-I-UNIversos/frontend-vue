@@ -29,10 +29,10 @@
         </a>
       </li>
       <li>
-        <a href="#" class="flex items-center gap-4">
+        <RouterLink to="escritor/list-editora" class="flex items-center gap-4">
           <UsersRound color="#fff"/>
           <span class="text-white">Editoras</span>
-        </a>
+        </RouterLink>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
