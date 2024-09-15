@@ -7,10 +7,10 @@
         <AlignJustify color="#FFF" class="mb-32"/>
       </li>
       <li>
-        <a href="#" class="flex items-center gap-4">
+        <RouterLink to="editora" class="flex items-center gap-4">
          <House color="#FFF"/>
           <span class="text-white">Home</span>
-        </a>
+        </RouterLink>
       </li>
       <li>
         <a href="#" class="flex items-center gap-4">
@@ -18,31 +18,31 @@
           <span class="text-white">Mensagens</span>
         </a>
       </li>
-      <li>
+      <!--li>
         <a href="#" class="flex items-center gap-4">
           <BellDot color="#FFF"/>
           <span class="text-white">Notifications</span>
           <span class="bg-red-500 text-white rounded-full px-2 py-1 ml-2">2</span>
         </a>
-      </li>
+      </li-->
       <li>
         <RouterLink to="editora/list-livros" class="flex items-center gap-4">
           <UsersRound color="#FFF"/>
           <span class="text-white">Livros</span>
         </RouterLink>
       </li>
-      <li>
+      <!--li>
         <a href="#" class="flex items-center gap-4">
           <Heart color="#FFF"/>
           <span class="text-white">Favoritos</span>
         </a>
-      </li>
-      <li>
+      </li-->
+      <!--li>
         <a href="#" class="flex items-center gap-4">
           <Settings color="#FFF"/>
           <span class="text-white">Configuracoes</span>
         </a>
-      </li>
+      </li-->
       <li>
         <a href="#" class="flex items-center gap-4">
           <UserRound color="#FFF"/>

@@ -70,6 +70,18 @@ const routes: Array<RouteRecordRaw> = [
     ]
   },
   <RouteRecordRaw> {
+    name: 'Admin',
+    path: '/admin',
+    component: () => import('@/views/app/admin/HomeAdmin.vue'),
+    children: [
+      <RouteRecordRaw> {
+        path: '',
+        name: 'Admin',
+        component: () => import('@/views/app/admin/MainContent.vue')
+      },
+    ]
+  },
+  <RouteRecordRaw> {
     path: '/',
     children: [
       <RouteRecordRaw> {

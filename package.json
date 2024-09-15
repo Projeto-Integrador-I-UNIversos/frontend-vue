@@ -13,6 +13,7 @@
     "@formkit/themes": "^1.6.5",
     "@formkit/vue": "^1.6.5",
     "@material-tailwind/html": "^2.3.0",
+    "@tanstack/vue-table": "^8.20.5",
     "@vueuse/core": "^10.11.1",
     "axios": "^1.7.3",
     "class-variance-authority": "^0.7.0",
@@ -24,6 +25,7 @@
     "radix-vue": "^1.9.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "vaul-vue": "^0.2.0",
     "vue": "^3.4.31",
     "vue-router": "^4.4.2",
     "vue3-carousel": "^0.3.3"
