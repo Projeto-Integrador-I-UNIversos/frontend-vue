@@ -147,7 +147,7 @@ export default defineComponent({
 
 
 <template>
-    <div class=" pt-20 flex justify-center bg-[#f9f9f9] h-[95vh]">
+    <div class=" pt-20 flex justify-center h-[95vh]">
        <div class="flex justify-center" >
             <img src="@/assets/imagens/universe-5.svg" class="w-[100%] h-[100%] mr-[50px] mt-[-50px]" />
        </div>

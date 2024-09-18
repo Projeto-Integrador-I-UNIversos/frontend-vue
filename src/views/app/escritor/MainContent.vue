@@ -245,7 +245,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="pb-16 pt-24 px-5">
+  <main class="pb-16 pt-24 px-5 rounded-[30px]">
 
     <div class="bg-violet-700 h-[300px]  banner flex">
       <div class="">
