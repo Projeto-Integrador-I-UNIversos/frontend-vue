@@ -34,6 +34,16 @@ const UserService = new class{
         })
     }
 
+    public delete(id:number) {
+        return new Promise<any>((resolve, reject) => {
+            if (id) {
+                axios.post(`${API_URL}/deletar`, {id})
+                    .then(response => {resolve(response.data)})
+                    .catch((error: AxiosError) => reject(error))
+            }
+        })
+    }
+
 }
 
 

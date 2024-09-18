@@ -18,6 +18,12 @@
           <span class="text-white">Mensagens</span>
         </a>
       </li>
+      <li>
+        <a href="editora/obras-sugeridas" class="flex items-center gap-4">
+         <MessageCircleMore color="#FFF"/>
+          <span class="text-white">Obras Sugeridas</span>
+        </a>
+      </li>
       <!--li>
         <a href="#" class="flex items-center gap-4">
           <BellDot color="#FFF"/>

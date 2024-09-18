@@ -34,6 +34,12 @@
           <span class="text-white">Editoras</span>
         </RouterLink>
       </li>
+      <li>
+        <RouterLink to="escritor/propostas" class="flex items-center gap-4">
+          <UsersRound color="#fff"/>
+          <span class="text-white">Propostas</span>
+        </RouterLink>
+      </li>
       <!--li>
         <a href="#" class="flex items-center gap-4">
           <Heart color="#fff"/>

@@ -1,3 +1,39 @@
+<script lang="ts">
+import { 
+  House, 
+  User, 
+  BookmarkCheck, 
+  AlignJustify, 
+  MessageCircleMore, 
+  BellDot,
+  UsersRound,
+  BookOpenText,
+  Heart,
+  UserRound,
+  Settings,
+  Book
+} from 'lucide-vue-next';
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'Sidebar',
+  components: {
+    House,
+    User, 
+    BookmarkCheck,
+    AlignJustify,
+    MessageCircleMore,
+    BellDot,
+    UsersRound,
+    BookOpenText,
+    Heart,
+    UserRound,
+    Settings,
+    Book
+  }
+})
+</script>
+
 <template>
   <div class="text-white h-screen w-60 pl-3 pt-4">
   <div class="border-[2px] border-white h-[96vh] px-6 bg-[#7325bd] rounded-[20px]">
@@ -29,10 +65,16 @@
         </a>
       </li-->
       <li>
-        <RouterLink to="escritor/list-editora" class="flex items-center gap-4">
+        <RouterLink to="admin/list-users" class="flex items-center gap-4">
           <UsersRound color="#fff"/>
-          <span class="text-white">Editoras</span>
+          <span class="text-white">Usuarios</span>
         </RouterLink>
+      </li>
+      <li>
+        <router-link to="admin/list-livros" class="flex items-center gap-4">
+          <BookOpenText color="#fff"/>
+          <span class="text-white">Livros</span>
+        </router-link>
       </li>
       <!--li>
         <a href="#" class="flex items-center gap-4">
@@ -62,39 +104,6 @@
 </div>
 </template>
 
-<script lang="ts">
-import { 
-  House, 
-  User, 
-  BookmarkCheck, 
-  AlignJustify, 
-  MessageCircleMore, 
-  BellDot,
-  UsersRound,
-  BookOpenText,
-  Heart,
-  UserRound,
-  Settings
-} from 'lucide-vue-next';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'Sidebar',
-  components: {
-    House,
-    User, 
-    BookmarkCheck,
-    AlignJustify,
-    MessageCircleMore,
-    BellDot,
-    UsersRound,
-    BookOpenText,
-    Heart,
-    UserRound,
-    Settings
-  }
-})
-</script>
 
 <style scoped>
 aside {

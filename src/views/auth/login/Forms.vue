@@ -52,6 +52,13 @@ export default defineComponent({
                  *      router.push({name: 'Admin'})
                  */
 
+                 if (response.data.tipo = 'escritor') {
+                    router.push('/escritor')
+                 }
+                 else if (response.data.tipo = 'editora'){
+                    router.push('/editora')
+                 }
+
             })
             .catch((error) => {
                 console.error('Erro:', error);

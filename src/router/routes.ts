@@ -6,22 +6,41 @@ const routes: Array<RouteRecordRaw> = [
     name: 'Escritor',
     path: '/escritor',
     component: () => import('@/views/app/escritor/HomeView.vue'),
+    meta: {
+      public: false,
+      onlyWhenLoggedOut: false,
+      requiresAuth: true
+  },
     children: [
       <RouteRecordRaw> {
         name: 'Escritor.Home',
         path: '',
         component: () => import('@/views/app/escritor/MainContent.vue'),
-       
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
       <RouteRecordRaw> {
         name: 'Escritor.CadastroObra',
         path: 'cadastro-obra',
-        component: () => import('../views/app/livros/CadastrarObra.vue')
+        component: () => import('../views/app/livros/CadastrarObra.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
       <RouteRecordRaw> {
         path: 'livros/:idLivro/editar',
         name: 'Escritor.Editar.Livro',
-        component: () => import('@/views/app/escritor/EditLivro.vue')
+        component: () => import('@/views/app/escritor/EditLivro.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
       <RouteRecordRaw> {
         path: 'livros/:pdfUrl',
@@ -37,12 +56,34 @@ const routes: Array<RouteRecordRaw> = [
       <RouteRecordRaw> {
         path: 'editora',
         name: 'Escritor.Editora',
-        component: () => import('@/views/app/escritor/Editora.vue')
+        component: () => import('@/views/app/escritor/Editora.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
       <RouteRecordRaw> {
         path: 'list-editora',
         name: 'Escritor.List.Editora',
-        component: () => import('@/views/app/escritor/ListEditora.vue')
+        component: () => import('@/views/app/escritor/ListEditora.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+        },
+        
+      },
+      <RouteRecordRaw> {
+        path: 'propostas',
+        name: 'Escritor.Proposta',
+        component: () => import('@/views/app/escritor/Propostas.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+        },
+        
       },
     ]
   },
@@ -55,7 +96,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Home',
         path: '',
         component: () => import('@/views/app/editora/MainContent.vue'),
-       
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
       <RouteRecordRaw> {
         path: 'livro/:id',
@@ -65,7 +110,22 @@ const routes: Array<RouteRecordRaw> = [
       <RouteRecordRaw> {
         path: 'list-livros',
         name: 'Editora.List.Livros',
-        component: () => import('@/views/app/editora/ListObras.vue')
+        component: () => import('@/views/app/editora/ListObras.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+        },
+      },
+      <RouteRecordRaw> {
+        path: 'obras-sugeridas',
+        name: 'Editora.Obras.Sugeridas',
+        component: () => import('@/views/app/editora/ObrasSugeridas.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+        },
       },
     ]
   },
@@ -77,7 +137,32 @@ const routes: Array<RouteRecordRaw> = [
       <RouteRecordRaw> {
         path: '',
         name: 'Admin',
-        component: () => import('@/views/app/admin/MainContent.vue')
+        component: () => import('@/views/app/admin/MainContent.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
+      },
+      <RouteRecordRaw> {
+        path: 'list-users',
+        name: 'Admin.UsersList',
+        component: () => import('@/views/app/admin/UsersList.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
+      },
+      <RouteRecordRaw> {
+        path: 'list-livros',
+        name: 'Admin.LivrosList',
+        component: () => import('@/views/app/admin/LivrosList.vue'),
+        meta: {
+          public: false,
+          onlyWhenLoggedOut: false,
+          requiresAuth: true
+      },
       },
     ]
   },
@@ -87,7 +172,11 @@ const routes: Array<RouteRecordRaw> = [
       <RouteRecordRaw> {
         name: 'Auth.Login',
         path: 'login',
-        component: () => import('../views/auth/login/Forms.vue')
+        component: () => import('../views/auth/login/Forms.vue'),
+        meta: {
+          public: true,
+          onlyWhenLoggedOut: true,
+      }
       },
       <RouteRecordRaw> {
         path: '/cadastro/escritor',
@@ -95,7 +184,11 @@ const routes: Array<RouteRecordRaw> = [
         // route level code-splitting
         // this generates a separate chunk (About.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('../views/auth/signUp/components/escritor/FormsEscritor.vue')
+        component: () => import('../views/auth/signUp/components/escritor/FormsEscritor.vue'),
+        meta: {
+          public: true,
+          onlyWhenLoggedOut: true,
+      }
       },
       <RouteRecordRaw> {
         path: '/cadastro/editora',
@@ -103,8 +196,13 @@ const routes: Array<RouteRecordRaw> = [
         // route level code-splitting
         // this generates a separate chunk (About.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import('../views/auth/signUp/components/editora/FormsEditora.vue')
+        component: () => import('../views/auth/signUp/components/editora/FormsEditora.vue'),
+        meta: {
+          public: true,
+          onlyWhenLoggedOut: true,
+        }
       },
+      
     ]
   }
 ]

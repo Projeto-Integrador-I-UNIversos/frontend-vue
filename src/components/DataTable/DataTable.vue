@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="TData" >
 import type { ColumnDef } from '@tanstack/vue-table'
 import {
   Table,
@@ -64,44 +64,13 @@ import {
 import { inject, onMounted, provide, ref, watch, h } from 'vue'
 import { cn, valueUpdater } from '@/lib/utils'
 import { EllipsisVertical } from 'lucide-vue-next'
-import { ArrowUpDown, ChevronDown } from 'lucide-vue-next'
-import { Data } from './Data'
-import columns from './Columns'
+import { ArrowUpDown, ChevronDown, Trash2 } from 'lucide-vue-next'
+import { defineEmits } from 'vue'
 
-const data: Data[] = [
-  {
-    id: 'm5gr84i9',
-    name: 'Lara Victoria',
-    status: 'ativo',
-    email: 'ken99@yahoo.com',
-  },
-  {
-    id: '3u1reuv4',
-    name: 'Lara Victoria',
-    status: 'ativo',
-    email: 'Abe45@gmail.com',
-  },
-  {
-    id: 'derv1ws0',
-    name: 'Lara Victoria',
-    status: 'inativo',
-    email: 'Monserrat44@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    name: 'Lara Victoria',
-    status: 'ativo',
-    email: 'Silas22@gmail.com',
-  },
-  {
-    id: 'bhqecj4p',
-    name: 'Lara Victoria',
-    status: 'inativo',
-    email: 'carmella@hotmail.com',
-  },
-]
-
-
+const props = defineProps<{
+  columns: ColumnDef<TData>[]
+  data: TData[]
+}>()
 
 const sorting = ref<SortingState>([])
 const columnFilters = ref<ColumnFiltersState>([])
@@ -110,8 +79,8 @@ const rowSelection = ref({})
 const expanded = ref<ExpandedState>({})
 
 const table = useVueTable({
-  data,
-  columns,
+  get data() { return props.data },
+  get columns() { return props.columns },
   getCoreRowModel: getCoreRowModel(),
   getPaginationRowModel: getPaginationRowModel(),
   getSortedRowModel: getSortedRowModel(),
@@ -130,6 +99,16 @@ const table = useVueTable({
     get expanded() { return expanded.value },
   },
 })
+
+const emit = defineEmits<{
+  (event: 'handle-click-get-id', id: number): void;
+}>();['handle-click-get-id'];
+
+const handleClickId = (data: TData) => {
+    const {id} = data as unknown as {id: number}
+    emit('handle-click-get-id', id)
+}
+
 </script>
 
 <template>
@@ -144,10 +123,10 @@ const table = useVueTable({
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
           <Button variant="outline" class="ml-auto">
-            Columns <ChevronDown class="ml-2 h-4 w-4" />
+            Colunas <ChevronDown class="ml-2 h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" class="bg-white" >
           <DropdownMenuCheckboxItem
             v-for="column in table.getAllColumns().filter((column) => column.getCanHide())"
             :key="column.id"
@@ -163,40 +142,47 @@ const table = useVueTable({
       </DropdownMenu>
     </div>
     <div class="rounded-md border">
-      <Table class="w-full" >
-        <TableHeader>
-          <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
-            <TableHead v-for="header in headerGroup.headers" :key="header.id">
-              <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header" :props="header.getContext()" />
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <template v-if="table.getRowModel().rows?.length">
-            <template v-for="row in table.getRowModel().rows" :key="row.id">
-              <TableRow :data-state="row.getIsSelected() && 'selected'">
-                <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id" >
-                  <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" class="text-left" />
-                </TableCell>
-              </TableRow>
-              <TableRow v-if="row.getIsExpanded()">
-                <TableCell :colspan="row.getAllCells().length" class="text-left" >
-                  {{ JSON.stringify(row.original) }}
-                </TableCell>
-              </TableRow>
+      <Table>
+          <TableHeader>
+            <TableRow v-for="headerGroup in table.getHeaderGroups()" :key="headerGroup.id">
+              <TableHead v-for="header in headerGroup.headers" :key="header.id">
+                <FlexRender v-if="!header.isPlaceholder" :render="header.column.columnDef.header" :props="header.getContext()" />
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <template v-if="table.getRowModel().rows?.length">
+              <template v-for="row in table.getRowModel().rows" :key="row.id">
+                  <TableRow :data-state="row.getIsSelected() && 'selected'" @click="handleClickId(row.original)">
+                    <TableCell v-for="cell in row.getVisibleCells()" :key="cell.id">
+                      <FlexRender :render="cell.column.columnDef.cell" :props="cell.getContext()" />
+                    </TableCell>
+                    <TableCell>
+                        <Button>
+                          <Trash2/>
+                        </Button>
+                    </TableCell>
+                  </TableRow>
+                <TableRow v-if="row.getIsExpanded()">
+                  <TableCell :colspan="row.getAllCells().length">
+                    {{ JSON.stringify(row.original) }}
+                  </TableCell>
+                </TableRow>
+                
+               
+              </template>
             </template>
-          </template>
-
-          <TableRow v-else>
-            <TableCell
-              :colspan="columns.length"
-              class="h-24 text-center"
-            >
-              No results.
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+  
+            <TableRow v-else>
+              <TableCell
+                :colspan="columns.length"
+                class="h-24 text-center"
+              >
+                Sem resultados....
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
     </div>
 
     <div class="flex items-center justify-end space-x-2 py-4">
@@ -208,7 +194,7 @@ const table = useVueTable({
           :disabled="!table.getCanPreviousPage()"
           @click="table.previousPage()"
         >
-          Previous
+          Anterior
         </Button>
         <Button
           variant="outline"
@@ -216,7 +202,7 @@ const table = useVueTable({
           :disabled="!table.getCanNextPage()"
           @click="table.nextPage()"
         >
-          Next
+          Proximo
         </Button>
       </div>
     </div>
