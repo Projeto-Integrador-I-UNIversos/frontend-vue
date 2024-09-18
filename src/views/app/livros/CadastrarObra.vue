@@ -318,20 +318,20 @@ export default defineComponent({
                         </label>
                     </div>
                 <div class="flex flex-row">
-                    <Collapsible v-model:open="isOpen">
-                        <CollapsibleTrigger>Cique aqui para ver todos os generos literarios</CollapsibleTrigger>
-                        <CollapsibleContent>
-                            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-2 pl-10">
-                                <div v-for="(genero, index) in generos" :key="index" class="flex" >
-                                    <Checkbox v-model="selectedGeneros"
+                    <Select>
+                        <SelectTrigger class="w-[180px]">
+                        <SelectValue placeholder="Selecione o genero" />
+                        </SelectTrigger>
+                        <SelectContent class="bg-white">
+                        <SelectGroup v-for="(genero, index) in generos" :key="index" class="flex">
+                            <SelectItem v-model="selectedGeneros"
                                     
-                                    :value="genero.name" ass="mr-2" />
-                                    <p>{{ genero.name }}</p>
-                                </div>
-                            </div>
-                            
-                        </CollapsibleContent>
-                    </Collapsible>
+                                    :value="genero.name" class="mr-2" >
+                            {{ genero.name }}
+                            </SelectItem>
+                        </SelectGroup>
+                        </SelectContent>
+                    </Select>
                 </div>
                 
                 <div class="px-2">

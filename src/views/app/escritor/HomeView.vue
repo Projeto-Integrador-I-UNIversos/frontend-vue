@@ -118,9 +118,9 @@ export default defineComponent({
           </div>
           <div class="flex w-full flex-col pr-5 ">
               <div class="flex justify-start items-center h-[10vh] py-2 px-10 bg-[#49117a] text-white fixed mt-[-10vh] w-full">
-                  <div>
+                  <!--div>
                       <p class="inter-bold text-xl w-[30vh]">Olá, Lara</p>
-                  </div>
+                  </div-->
                   <div class="w-full flex justify-end ml-[80vh]">
                       <RouterLink :to="{name: 'Escritor.CadastroObra'}" class="lex bg-white text-[#49117a] flex items-center  rounded-[30px] py-2 px-3">
                           <Plus/>
