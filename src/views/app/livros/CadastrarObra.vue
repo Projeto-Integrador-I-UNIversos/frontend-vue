@@ -12,7 +12,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 import Checkbox from '@/components/ui/checkbox/Checkbox.vue';
 import {
   Select,
@@ -22,129 +22,134 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input'
+} from '@/components/ui/select';
+import { TagsInput, TagsInputInput, TagsInputItem, TagsInputItemDelete, TagsInputItemText } from '@/components/ui/tags-input';
 
-import banner from '@/assets/imagens/5432299.jpg'
+import banner from '@/assets/imagens/5432299.jpg';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible/'
+} from '@/components/ui/collapsible';
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 export default defineComponent({
-    name: 'CadastrarObra',
-    components: {
-        Input,
-        Label,
-        Button,
-        DropdownMenu,
-        DropdownMenuContent,
-        DropdownMenuLabel,
-        DropdownMenuRadioGroup,
-        DropdownMenuRadioItem,
-        DropdownMenuSeparator,
-        DropdownMenuTrigger,
-        Checkbox,
-        Select,
-        SelectContent,
-        SelectGroup,
-        SelectItem,
-        SelectLabel,
-        SelectTrigger,
-        SelectValue,
-        TagsInput, 
-        TagsInputInput, 
-        TagsInputItem, 
-        TagsInputItemDelete, 
-        TagsInputItemText,
-        Collapsible,
-        CollapsibleContent,
-        CollapsibleTrigger,
-    },
-    data() {``
-        return {
-            isOpen,
-            Entity: {
-                titulo: '',
-                idioma: '',
-                QuantPaginas: '',
-                pais: '',
-                descricao: '',
-                capaLivro: null as File | null,
-                idEscritor: 3,
-                status: '',
-                PdfLivro: null as File | null,
-                selectedGeneros: [],
-            },
-            generos: [
-                {name: 'Ficção'},
-                {name: 'Não-ficção'},
-                {name: 'Ficção Científica'},
-                {name: 'Fantasia'},
-                {name: 'Mistério'},
-                {name: 'Suspense'},
-                {name: 'Romance'},
-                {name: 'Ficção Histórica'},
-                {name: 'Biografia'},
-                {name: 'Autoajuda'},
-                {name: 'Terror'},
-                {name: 'Aventura'},
-                {name: 'Poesia'},
-                {name: 'Drama'},
-                {name: 'Memórias'},
-                {name: 'Filosofia'},
-                {name: 'Psicologia'},
-                {name: 'Crime'},
-                {name: 'Quadrinhos'},
-                {name: 'Juvenil'}
-            ],
-        }
-    },
-    methods: {
-        async loadUser() {
-            console.log('CLICK');
-            const URL = 'http://localhost:5001';
+  name: 'CadastrarObra',
+  components: {
+    Input,
+    Label,
+    Button,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+    Checkbox,
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+    TagsInput, 
+    TagsInputInput, 
+    TagsInputItem, 
+    TagsInputItemDelete, 
+    TagsInputItemText,
+    Collapsible,
+    CollapsibleContent,
+    CollapsibleTrigger,
+  },
+  data() {
+    return {
+      isOpen,
+      Entity: {
+        titulo: '',
+        idioma: '',
+        QuantPaginas: '',
+        pais: '',
+        descricao: '',
+        capaLivro: null as File | null,
+        idEscritor: 3,
+        status: '',
+        PdfLivro: null as File | null, // PDF file upload field
+        selectedGeneros: [],
+      },
+      generos: [
+        { name: 'Ficção' },
+        { name: 'Não-ficção' },
+        { name: 'Ficção Científica' },
+        { name: 'Fantasia' },
+        { name: 'Mistério' },
+        { name: 'Suspense' },
+        { name: 'Romance' },
+        { name: 'Ficção Histórica' },
+        { name: 'Biografia' },
+        { name: 'Autoajuda' },
+        { name: 'Terror' },
+        { name: 'Aventura' },
+        { name: 'Poesia' },
+        { name: 'Drama' },
+        { name: 'Memórias' },
+        { name: 'Filosofia' },
+        { name: 'Psicologia' },
+        { name: 'Crime' },
+        { name: 'Quadrinhos' },
+        { name: 'Juvenil' },
+      ],
+    };
+  },
+  methods: {
+    async loadUser() {
+      console.log('CLICK');
+      const URL = 'http://localhost:5001';
 
-             // esse e um pouco mais complicado,
-            // aqui eu formato os dados pra ficar no padrao que aceite arquivos
-            // const formData = new FormData();
-        //     formData.append('titulo', this.Entity.titulo);
-        //     formData.append('idioma', this.Entity.idioma);
-        //     formData.append('QuantPaginas', this.Entity.QuantPaginas);
-        //     formData.append('pais', this.Entity.pais);
-        //     formData.append('descricao', this.Entity.descricao);
-        //     formData.append('capaLivro', this.Entity.capaLivro as File);
-        //     formData.append('idEscritor', this.Entity.idEscritor.toString());
-        //     formData.append('status', this.Entity.status);
-        //     formData.append('PdfLivro', this.Entity.PdfLivro as File);
+      // Formatando os dados para enviar como form-data
+      const formData = new FormData();
+      formData.append('titulo', this.Entity.titulo);
+      formData.append('idioma', this.Entity.idioma);
+      formData.append('QuantPaginas', this.Entity.QuantPaginas);
+      formData.append('pais', this.Entity.pais);
+      formData.append('descricao', this.Entity.descricao);
+      formData.append('capaLivro', this.Entity.capaLivro as File);
+      formData.append('idEscritor', this.Entity.idEscritor.toString());
+      formData.append('status', this.Entity.status);
+      formData.append('PdfLivro', this.Entity.PdfLivro as File); // Adicionando PDF ao formData
 
-        //    // como nao utilizei service, usei o axios aqui mesmo
-        //     try {
-        //         const response = await axios.post(`${URL}/cadastroLivro`, formData, {
-        //             headers: {
-        //                 // aqui eu especifico que vou usar o formData
-        //                 // se nao funcionar da mesma forma, voce pode alterar como desejar,
-        //                 // mas e pra funcionar
-        //                 'Content-Type': 'multipart/form-data'
-        //             }
-        //         });
-        //         console.log(response.data);
-        //         alert("Cadastro Livro concluido")
-        //     } catch (error) {
-        //         console.error('Erro:', error);
-        //         alert("Cadastro Livro nao concluido")
-        //     }
-        }
+      try {
+        const response = await axios.post(`${URL}/cadastroLivro`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(response.data);
+        alert('Cadastro Livro concluído');
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Cadastro Livro não concluído');
+      }
     },
-    setup() {
-        
-    }
-})
+    handleFileChange(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const files = target.files;
+      if (files && files.length > 0) {
+        this.Entity.PdfLivro = files[0]; // Capturando o arquivo PDF selecionado
+      }
+    },
+    handleCapaChange(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const files = target.files;
+      if (files && files.length > 0) {
+        this.Entity.capaLivro = files[0]; // Capturando o arquivo da capa do livro
+      }
+    },
+  },
+});
 </script>
-
 
 <template>
     <div class=" pt-20 flex justify-center h-[95vh]">
@@ -320,13 +325,13 @@ export default defineComponent({
                 <div class="flex flex-row">
                     <Select>
                         <SelectTrigger class="w-[180px]">
-                        <SelectValue placeholder="Selecione o genero" />
+                        <SelectValue placeholder="Selecione o genero" class="text-black" />
                         </SelectTrigger>
                         <SelectContent class="bg-white">
                         <SelectGroup v-for="(genero, index) in generos" :key="index" class="flex">
                             <SelectItem v-model="selectedGeneros"
                                     
-                                    :value="genero.name" class="mr-2" >
+                                    :value="genero.name" class="mr-2 text-black" >
                             {{ genero.name }}
                             </SelectItem>
                         </SelectGroup>

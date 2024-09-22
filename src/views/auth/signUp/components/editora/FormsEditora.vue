@@ -21,7 +21,7 @@ export default {
           Entity: {
               email: '',
               senha: '',
-              tipo :'' ,
+              tipo :'editora' ,
               editora_dados: {
                     nome: '',
                     cnpj:'',
@@ -55,8 +55,7 @@ export default {
      handleSubmit() {
          if (this.selectedOption) {
             
-             this.showForm = false; // Esconder o formulário e mostrar o FormsEditora
-            // InputDescricao
+             this.showForm = false; 
              
          }
          console.log(this.selectedOption);
@@ -69,14 +68,15 @@ export default {
 
           // caso de errado, verifica no inspecionar se os dados conferem com oq vc 
           // digitou, se faltar algo no EntityCopy vc me avisa
-          console.log('dados: ', EntityCopy);
           
             
           if (EntityCopy.senha == this.confirmSenha) {
               // caso nao encontre, descomente a linha do axios
               //axios.post(`${URL}/cadastro`, EntityCopy)
               // e comente a linha abaixo
-              UserService.cadastrar(EntityCopy)
+              console.log(EntityCopy);
+              axios.post(`${URL}/cadastro`, EntityCopy)
+              //UserService.cadastrar(EntityCopy)
                   .then((response) => {
                       console.log(response.data);
                       this.handleSubmit()

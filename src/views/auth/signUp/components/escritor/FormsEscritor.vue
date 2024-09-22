@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserService } from '@/service/user.service';
-
+import { format } from 'date-fns';
 
 export default defineComponent({
     name: 'CadastrarEscritor',
@@ -38,13 +38,12 @@ export default defineComponent({
             Entity: {
                 email: '',
                 senha: '',
-                tipo : '' ,
+                tipo : 'escritor' ,
                 escritor_dados : {
                     nome : '',
                     dataNasc : '',
                     cpf : '',
                     nacionalidade : '',
-                    idUsuario: '',
                     telefone:'',
                     linkedin:'',
                     twitter:'',
@@ -54,7 +53,8 @@ export default defineComponent({
                 } 
             },
             confirmSenha: '',
-            universe
+            universe,
+            format
         }
     },
     mounted(){
@@ -64,6 +64,7 @@ export default defineComponent({
             console.log('CLICK');
             const URL = 'http://localhost:5001';
 
+            this.Entity.escritor_dados.dataNasc = this.formatDate(this.Entity.escritor_dados.dataNasc)
             let EntityCopy = JSON.parse(JSON.stringify(this.Entity));
            
              // caso de errado, verifica no inspecionar se os dados conferem com oq vc 
@@ -76,7 +77,7 @@ export default defineComponent({
                  // caso nao encontre, descomente a linha do axios
                 //axios.post(`${URL}/cadastro`, EntityCopy)
                 // e comente a linha abaixo
-                UserService.cadastrar(EntityCopy)
+                axios.post(`${URL}/cadastro`,EntityCopy)
                     .then((response) => {
                         console.log(response.data);
                         alert("Cadastro Escritor concluido")
@@ -87,7 +88,10 @@ export default defineComponent({
                         console.error('Erro:', error);
                     });
             }
-        }
+        },
+        formatDate(date:any) {
+      return format(date, 'dd/MM/yyyy'); // Formato: 19/09/2024
+    }
     }
 })
 

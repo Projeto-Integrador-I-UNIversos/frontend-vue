@@ -8,6 +8,7 @@ const NAME = 'name';
 const RESET_EMAIL = "reset_email";
 const CLIENTE = "id_cliente";
 const API_URL = 'http://localhost:5110';
+const ID = 'id'
 
 const TokenService = {
 
@@ -69,6 +70,14 @@ const TokenService = {
     removeEmail(){
         localStorage.setItem(RESET_EMAIL, "");
         localStorage.removeItem(RESET_EMAIL);
+    },
+
+    saveCliente(idCliente:string) {
+        localStorage.setItem(CLIENTE, idCliente);
+    },
+
+    getCliente(){
+        return localStorage.getItem(CLIENTE);
     },
 
     saveCliente(idCliente:string) {

@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import DataTable from '@/components/DataTable/DataTable.vue';
+import DataTablePropostas from '@/components/DataTable/DataTable.vue';
 import columns from '@/components/DataTable/ColumnsProposta';
 import axios from 'axios';
 import { ref } from 'vue';
@@ -13,39 +13,11 @@ interface Data {
 
 const data = ref<Data[]>([]);
 
-// const data: Data[] = [
-//     {
-//         id: 1,
-//         Editora: '1',
-//         Livro: '1'
-//     },
-//     {
-//         id: 1,
-//         Editora: '1',
-//         Livro: '1'
-//     },
-//     {
-//         id: 1,
-//         Editora: '1',
-//         Livro: '1'
-//     },
-//     {
-//         id: 1,
-//         Editora: '1',
-//         Livro: '1'
-//     },
-//     {
-//         id: 1,
-//         Editora: '1',
-//         Livro: '1'
-//     },
-// ]
-
 const URL = 'http://localhost:5001';
 export default defineComponent({
     name: 'Proposta',
     components: {
-        DataTable,
+        DataTablePropostas,
     },
     data() {
         return {
@@ -63,9 +35,9 @@ export default defineComponent({
                 const response = await axios.post(`${URL}/propostas`)
 
                 items = response.data.map((item: any) => ({
-                id: item.id,
-                Editora: this.loadEditora(item.Editora),
-                Escritor: this.loadLivro(item.idEscritor )
+                    id: item.id,
+                    Editora: this.loadEditora(item.Editora),
+                    Escritor: this.loadLivro(item.idEscritor )
                 }));
         return items;
             }
@@ -98,8 +70,8 @@ export default defineComponent({
 </script>
 
 <template>
-     <main class="pb-16 pt-24 px-5full w-full h-">
-        <DataTable :data="data" :columns="columns" />
+     <main class="pb-16 pt-24 px-5 h-[85.4vh] w-full ">
+        <DataTablePropostas :data="data" :columns="columns" />
         
      </main>
 </template>

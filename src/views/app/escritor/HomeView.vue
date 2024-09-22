@@ -117,7 +117,7 @@ export default defineComponent({
               </div>
           </div>
           <div class="flex w-full flex-col pr-5 ">
-              <div class="flex justify-start items-center h-[10vh] py-2 px-10 bg-[#49117a] text-white fixed mt-[-10vh] w-full">
+              <div class="flex justify-start items-center h-[10vh] py-2 px-10 bg-[#49117a] text-white fixed mt-[-11vh] w-full">
                   <!--div>
                       <p class="inter-bold text-xl w-[30vh]">Olá, Lara</p>
                   </div-->

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref, onMounted, watch } from 'vue';
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import Label from '@/components/ui/label/Label.vue';
@@ -26,6 +26,7 @@ import {
 import { Heart } from 'lucide-vue-next';
 import banner from '@/assets/imagens/5432299.jpg'
 import pequeno_principe from '@/assets/imagens/o-pequeno-principe.png'
+import TokenService from '@/service/sorage.service';
 
 export default defineComponent({
     name: 'Obra',
@@ -66,7 +67,59 @@ export default defineComponent({
         ]
         }
       }
+    },
+    setup() {
+      const Entity = ref({
+        id: 1,
+        titulo: '',
+        escritor: '',
+        descricao: '',
+        capa: '',
+        genero: ''
+      })
+
+      function loadItems() {
+        const URL = 'http://localhost:5001';
+
+
+        const id = TokenService.getName();
+        axios.get(`${URL}/livro/${id}`)
+          .then((response) => {
+            const escritor = response.data.idEscritor
+
+            Entity.value.titulo = response.data.titulo;
+            Entity.value.escritor = escritor
+            Entity.value.descricao = response.data.descricao;
+            Entity.value.capa = response.data.capa;
+            Entity.value.genero = response.data.genero;
+          })
+          .catch((error) => {console.log(error);
+          })
+      }
+
+      async function getEscritor(id:any) {
+      try {
+        const URL = 'http://localhost:5001';
+        const response = await axios.get(`${URL}/escritores/${id}`)
+        return response.data.nome;
+      }
+      catch (error) {
+        console.error("Erro ao carregar os itens:", error);
+      }
+      
     }
+
+      onMounted(() => {
+        loadItems()
+      })
+
+      return {
+        Entity
+      }
+    }
+
+
+
 })
 </script>
 
@@ -75,15 +128,15 @@ export default defineComponent({
     <div class="flex flex-col pt-20 flex justify-center bg-[#f9f9f9] h-[95vh]">
       <div class="flex flex-row justify-center px-[10%]">
         <div class="flex w-[70%] flex-col text-left text-[#6208b8]">
-          <h1 class="inter-base pb-4" >{{ data.titulo }}</h1>
-          <p class="inter-base pb-2" >{{ data.autor }}</p>
+          <h1 class="inter-base pb-4" >{{ Entity.titulo }}</h1>
+          <p class="inter-base pb-2" >{{ Entity.escritor }}</p>
           <div class="flex" >
-            <div v-for="(livro, index) in data.generos" :key="livro.id">
-              <div class="flex mr-2 my-2 bg-[#e8d6fa] py-1 px-3 rounded-[20px]" >{{ livro.nome }}</div>
+            <div>
+              <div class="flex mr-2 my-2 bg-[#e8d6fa] py-1 px-3 rounded-[20px]" >{{ Entity.genero }}</div>
             </div>
           </div>
          
-          <p class="inter-light mt-3" >{{ data.descricao }}</p>
+          <p class="inter-light mt-3" >{{ Entity.descricao }}</p>
           <div class="flex my-10 items-center" >
             <Button class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[40%]" >Enviar Proposta</Button>
             <Button class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[40%] mx-3" >Download PDF</Button>
@@ -91,7 +144,7 @@ export default defineComponent({
           </div>
         </div>
         <div class="flex justify-center">
-          <img :src="data.capa" width="60%"  class="rounded-[20px]">
+          <img :src="Entity.capa" width="60%"  class="rounded-[20px]">
         </div>
       </div>
      

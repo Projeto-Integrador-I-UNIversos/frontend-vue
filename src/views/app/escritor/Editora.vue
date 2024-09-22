@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import Button from '@/components/ui/button/Button.vue';
 import {
   Tabs,
@@ -18,6 +18,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+
+interface Data {
+    id: '',
+    nome: '',
+    descricao: '',
+    cnpj: '',
+    telefone: '',
+    pais: '',
+    linkedin: '',
+    twitter: '',
+    instagram: '',
+    siteInstitucional:''
+}
+
+const data = ref<Data[]>([]);
+const route = useRoute();
+const id = ref()
 
 export default defineComponent({
     name: 'Editora',
@@ -42,47 +61,46 @@ export default defineComponent({
     },
     data() {
         return {
-           data: {
-                foto: pequeno_principe,
-                nome: 'Editora Pequeno Principe',
-                descricao: 'Com o compromisso de publicar livros que contribuam para um país (e um mundo) melhor e mais justo, hoje o Grupo Companhia das Letras possui 21 selos dedicados aos mais variados segmentos. São mais de 8.500 títulos ativos em seu catálogo, e em média são lançados 400 títulos ao ano. Essa vasta gama de selos independentes permite à Companhia das Letras uma expressiva presença no mercado editorial brasileiro, além da capacidade de atender as necessidades de promoção e comunicação de cada nicho de maneira focada para manter um relacionamento próximo com seus autores e parceiros.',
-                cnpj: '1234567890',
-                telefone: '45991184905',
-                pais: 'Brasil',
-                linkedin: '@editoraPequenoPrincipe',
-                twitter: '@editoraPequenoPrincipe',
-                instagram: '@editoraPequenoPrincipe',
-                siteInstitucional: 'https://editorapequenoprincipe.com.br'
-            },
-            livros: [
-                {
-                    titulo: "O Pequeno Principe",
-                    escritor: "Antoine de Saint-Exupery",
-                    capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-                    id: 1 as number
-                },
-                {
-                    titulo: "O Pequeno Principe",
-                    escritor: "Antoine de Saint-Exupery",
-                    capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-                    id: 1 as number
-                },
-                {
-                    titulo: "O Pequeno Principe",
-                    escritor: "Antoine de Saint-Exupery",
-                    capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-                    id: 1 as number
-                },
-                {
-                    titulo: "O Pequeno Principe",
-                    escritor: "Antoine de Saint-Exupery",
-                    capa: "../../../../public/assets/capas/O-PEQUENO-PRINCIPE-capa-scaled.jpg",
-                    id: 1 as number
-                },
-            ]
+         data,
+            
         }
-    }
-   
+    },
+    async mounted() {
+        id.value = route.params.id;
+        data.value = await this.loadItems(data); 
+  },
+  methods: {
+    async loadItems(items:any) {
+
+      try {
+        const URL = 'http://localhost:5001';
+        const response = await axios.get(`${URL}/list/editoras`)
+        
+        items = response.data.map((item: any) => ({
+            id: item.id,
+            nome: item.nome,
+            descricao: item.descricao,
+            cnpj: item.cnpj,
+            telefone: item.telefone,
+            pais: item.pais,
+            linkedin: item.linkedin,
+            twitter: item.twitter,
+            instagram: item.instagram,
+            siteInstitucional:item.siteInstitucional
+                }));
+        return items;
+        
+
+      } catch (error) {
+        console.error("Erro ao carregar os itens:", error);
+      }
+      
+      
+    },
+},
+setup() {
+    
+}
 })
 </script>
 

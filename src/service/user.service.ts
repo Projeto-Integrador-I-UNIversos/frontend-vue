@@ -3,7 +3,7 @@ import TokenService from "./sorage.service";
 
 import router from "@/router";
 
-const API_URL = 'https://localhost:5001'
+const API_URL = 'http://localhost:5001'
 
 const UserService = new class{
 

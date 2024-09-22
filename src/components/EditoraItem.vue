@@ -9,6 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import image from '../assets/imagens/editora.jpg'
+
 export default defineComponent({
   name: 'EditoraItem',
   components: {
@@ -20,18 +22,23 @@ export default defineComponent({
     CardTitle,
     Button
   },
+  data() {
+    return {
+      image
+    }
+  },
   props: {
     editora: { type: String, required: true },
-    capaLivro: { type: String, required: true },
+    //capaLivro: { type: String, required: true },
   },
   computed: {
-    caminhoCompletoCapa(): string {
-      // Construa o caminho completo usando um caminho absoluto a partir da pasta public
-      const caminho =  `../../public/assets/imagens/${this.capaLivro}`;
-      console.log(caminho);
+    // caminhoCompletoCapa(): string {
+    //   // Construa o caminho completo usando um caminho absoluto a partir da pasta public
+    //   const caminho =  `../../public/assets/imagens/${this.capaLivro}`;
+    //   console.log(caminho);
       
-      return caminho;
-    }
+    //   return caminho;
+    // }
   }
 })
 </script>
@@ -47,7 +54,9 @@ export default defineComponent({
   </div-->
   <div class="flex justify-center p-0 m-0 w-44 z-1">
   <div class="mt-5 p-0 justify-center flex flex-col">
-    <img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/>
+    <!--img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/-->
+        <img :src="image" alt="Capa do livro" width="150px" class="border ml-2"/>
+
     <div class="">
       <h3 class="flex text-center pl-5 pt-2 pb-1 text-[13px]">{{ editora }}</h3>
       <Button class="border-indigo-600 text-sm w-36 button h-8 ml-3 hover:bg-indigo-600 hover:text-white">Ver Editora</Button>
