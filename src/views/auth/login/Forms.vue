@@ -6,6 +6,7 @@ import Input from '@/components/ui/input/Input.vue';
 import  universe from '@/assets/imagens/header-img.svg'
 import Button from '@/components/ui/button/Button.vue';
 import router from '@/router';
+import TokenService from '@/service/sorage.service';
 
 export default defineComponent({
     name: 'Forms',
@@ -51,6 +52,7 @@ export default defineComponent({
                  * else 
                  *      router.push({name: 'Admin'})
                  */
+                 TokenService.saveUser(response.data.id)
 
                  if (response.data.tipo = 'escritor') {
                     router.push('/escritor')

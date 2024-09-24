@@ -75,7 +75,8 @@ export default defineComponent({
         escritor: '',
         descricao: '',
         capa: '',
-        genero: ''
+        genero: '',
+        pdf: ''
       })
 
       function loadItems() {
@@ -83,7 +84,7 @@ export default defineComponent({
 
 
         const id = TokenService.getName();
-        axios.get(`${URL}/livro/${id}`)
+        axios.get(`${URL}/livros/10`)
           .then((response) => {
             const escritor = response.data.idEscritor
 
@@ -92,6 +93,10 @@ export default defineComponent({
             Entity.value.descricao = response.data.descricao;
             Entity.value.capa = response.data.capa;
             Entity.value.genero = response.data.genero;
+            Entity.value.pdf = response.data.PdfLivro
+
+            console.log(response.data);
+            
           })
           .catch((error) => {console.log(error);
           })
@@ -107,14 +112,38 @@ export default defineComponent({
         console.error("Erro ao carregar os itens:", error);
       }
       
-    }
+      }
+
+      async function download() {
+          try {
+              const response = await axios({
+                url: `http://localhost:5001/livro_pdf/${Entity.value.pdf}`,
+                method: 'GET',
+                responseType: 'blob', 
+              });
+
+              const url = window.URL.createObjectURL(new Blob([response.data]));
+              const link = document.createElement('a');
+              link.href = url;
+
+              link.setAttribute('download', Entity.value.pdf);
+
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          } catch (error) {
+            console.error('Erro ao baixar o PDF:', error);
+          }
+          
+        }
 
       onMounted(() => {
         loadItems()
       })
 
       return {
-        Entity
+        Entity,
+        download
       }
     }
 
@@ -138,8 +167,8 @@ export default defineComponent({
          
           <p class="inter-light mt-3" >{{ Entity.descricao }}</p>
           <div class="flex my-10 items-center" >
-            <Button class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[40%]" >Enviar Proposta</Button>
-            <Button class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[40%] mx-3" >Download PDF</Button>
+            <Button class="bg-indigo-400 hover:bg-indigo-500 px-4 text-white inter-base rounded-[30px] w-[70%]" >Enviar Proposta</Button>
+            <Button @click="download" class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[70%] mx-3" >Download PDF</Button>
             <Heart class="mx-10 cursor-pointer" />
           </div>
         </div>

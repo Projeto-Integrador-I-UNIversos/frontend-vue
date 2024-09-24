@@ -9,6 +9,7 @@ const RESET_EMAIL = "reset_email";
 const CLIENTE = "id_cliente";
 const API_URL = 'http://localhost:5110';
 const ID = 'id'
+const ID_USER = 'id'
 
 const TokenService = {
 
@@ -80,12 +81,12 @@ const TokenService = {
         return localStorage.getItem(CLIENTE);
     },
 
-    saveCliente(idCliente:string) {
-        localStorage.setItem(CLIENTE, idCliente);
+    saveUser(id:string) {
+        localStorage.setItem(ID_USER, id);
     },
 
-    getCliente(){
-        return localStorage.getItem(CLIENTE);
+    getUser(){
+        return localStorage.getItem(ID_USER);
     },
 
     logoutAndRedirect(){

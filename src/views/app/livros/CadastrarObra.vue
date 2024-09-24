@@ -31,8 +31,11 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
+import TokenService from '@/service/sorage.service';
 
 const isOpen = ref(false);
+const id = Number(TokenService.getUser());
+const URL = 'http://localhost:5001';
 
 export default defineComponent({
   name: 'CadastrarObra',
@@ -103,48 +106,85 @@ export default defineComponent({
       ],
     };
   },
+  setup() {
+
+    async function getId() {
+      
+    }
+      
+    return {
+      getId
+    }
+      
+  },
+  mounted() {
+    this.getId()
+  },
   methods: {
-    async loadUser() {
-      console.log('CLICK');
-      const URL = 'http://localhost:5001';
-
-      // Formatando os dados para enviar como form-data
-      const formData = new FormData();
-      formData.append('titulo', this.Entity.titulo);
-      formData.append('idioma', this.Entity.idioma);
-      formData.append('QuantPaginas', this.Entity.QuantPaginas);
-      formData.append('pais', this.Entity.pais);
-      formData.append('descricao', this.Entity.descricao);
-      formData.append('capaLivro', this.Entity.capaLivro as File);
-      formData.append('idEscritor', this.Entity.idEscritor.toString());
-      formData.append('status', this.Entity.status);
-      formData.append('PdfLivro', this.Entity.PdfLivro as File); // Adicionando PDF ao formData
-
+    async getIdEscritor(id:number) {
       try {
-        const response = await axios.post(`${URL}/cadastroLivro`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        console.log(response.data);
-        alert('Cadastro Livro concluído');
-      } catch (error) {
-        console.error('Erro:', error);
-        alert('Cadastro Livro não concluído');
+        const responseEscritor = await axios.get(`${URL}/escritores/${id}`)
+        console.log('id',responseEscritor.data);
+        return responseEscritor.data.idEscritor
+      }
+      catch(error){
+        console.log(error);
+        
       }
     },
-    handleFileChange(event: Event) {
+    async loadUser() {
+    
+     
+ 
+    
+    this.Entity.idEscritor = await this.getIdEscritor(id)
+    console.log(this.Entity.idEscritor);
+    
+
+    const formData = new FormData();
+    formData.append('titulo', this.Entity.titulo);
+    formData.append('idioma', this.Entity.idioma);
+    formData.append('QuantPaginas', this.Entity.QuantPaginas);
+    formData.append('pais', this.Entity.pais);
+    formData.append('descricao', this.Entity.descricao);
+    formData.append('capaLivro', this.Entity.capaLivro as File);
+    formData.append('idEscritor', this.Entity.idEscritor.toString());
+    formData.append('status', this.Entity.status);
+    formData.append('PdfLivro', this.Entity.PdfLivro as File);
+    console.log('FormData:', Array.from(formData.entries()));
+      
+    
+    
+    try {
+     
+     
+
+      const response = await axios.post(`${URL}/cadastroLivro`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data);
+      alert('Cadastro Livro concluído');
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Cadastro Livro não concluído');
+    }
+  },
+
+  handleFileChange(event: Event) {
       const target = event.target as HTMLInputElement;
       const files = target.files;
       if (files && files.length > 0) {
-        this.Entity.PdfLivro = files[0]; // Capturando o arquivo PDF selecionado
+        this.Entity.PdfLivro = files[0];
       }
     },
+
     handleCapaChange(event: Event) {
       const target = event.target as HTMLInputElement;
       const files = target.files;
       if (files && files.length > 0) {
-        this.Entity.capaLivro = files[0]; // Capturando o arquivo da capa do livro
+        this.Entity.capaLivro = files[0];
       }
     },
   },
@@ -187,11 +227,17 @@ export default defineComponent({
                 
                 <div class="px-2">
                     <Label class="text-black flex text-left py-3" for="capaLivro">Capa Livro</Label>
-                    <Input id="capaLivro" type="file" @change="(e:any) => Entity.capaLivro = e.target.files[0]" class="input text-black peer w-full h-full bg-transparent text-black font-sans 
-                        fon bg-[#f7effe] t-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " required/>
+                    <Input 
+                      id="capaLivro" 
+                      type="file" 
+                      @change="(e: any) => Entity.capaLivro = e.target.files[0]" 
+                      class="input text-black peer w-full h-full bg-transparent text-black font-sans 
+                            bg-[#f7effe] font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                            placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                            focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                      placeholder=" " 
+                      required 
+                  />
                 </div>
                 <div class="flex flex-row mt-2">
                     <div class="relative w-full  h-10 m-2">
@@ -341,12 +387,16 @@ export default defineComponent({
                 
                 <div class="px-2">
                     <Label class="text-black flex text-left py-3" for="pdfLivro">PDF Livro</Label>
-                    <Input id="pdfLivro" type="file" @change="(e:any) => Entity.PdfLivro = e.target.files[0]" 
-                        class="bg-[#f7effe] peer w-full h-full text-black font-sans 
-                        font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
-                        placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
-                        focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
-                        placeholder=" " />
+                    <Input 
+                          id="pdfLivro" 
+                          type="file" 
+                          @change="(e: any) => Entity.PdfLivro = e.target.files[0]" 
+                          class="bg-[#f7effe] peer w-full h-full text-black font-sans 
+                                font-normal outline outline-0 focus:outline-0 disabled:bg-black disabled:border-0 transition-all placeholder-shown:border 
+                                placeholder-shown:border-indigo-400 placeholder-shown:border-t-indigo-400 border focus:border-2 border-t-transparent 
+                                focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-indigo-400 focus:border-indigo-400"
+                          placeholder=" " 
+                      />
                 </div>
                 <div class="pt-3">
                     <Button class="bg-indigo-500 button text-black w-32 hover:text-indigo-500 text-white" type="submit">Salvar</Button>
