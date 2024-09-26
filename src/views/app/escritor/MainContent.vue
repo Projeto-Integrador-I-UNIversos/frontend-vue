@@ -23,7 +23,7 @@ interface Livro {
 }
 
 interface Data {
-  id: 1,
+  idEditora: 1,
   nome: '',
 }
 
@@ -46,25 +46,26 @@ export default defineComponent({
   data() {
     return {
       livros: [] as Livro[],
-      id: '' as string | null,
       data,
     }  
   },
   async mounted() {
     data.value = await this.loadItems(data); 
-    this.id
-  },
+    console.log(data.value);
+      },
   methods: {
     async loadItems(items:any) {
 
       try {
         const URL = 'http://localhost:5001';
-        const response = await axios.get(`${URL}/list/editoras`)
+        const response = await axios.get(`${URL}/editoras`)
+        
+        console.log(response.data);
         
         items = response.data.map((item: any) => ({
-                id: item.id,
-                nome: item.nome
-                }));
+            idEditora: item.idEditora,
+            nome: item.nome
+        }));
         return items;
         
 
@@ -72,12 +73,7 @@ export default defineComponent({
         console.error("Erro ao carregar os itens:", error);
       }
 
-      
-      
     },
-    handleClickAndRedirectToClientePage(){
-      return router.push({path: `/app/livros/${this.id}/editar`});
-}
   },
   computed: {
     caminhoCompletoCapa(): string {
@@ -95,15 +91,15 @@ export default defineComponent({
   <main class="pb-16 pt-24 px-5 rounded-[30px]">
 
     <div class=" h-[50vh]  bg-[#f4d747] rounded-[30px] flex py-4 px-10 grid grid-cols-2">
+    
       <div class="flex items-center justify-center flex-col">
         <p class="inter-bold text-[#640eca] text-[30px]" >Encontre a melhor Editora que se encaixe <br/> no seu perfil</p>
         <p class="inter-base text-[#640eca] text-[20px] pt-4" >Universos Literarios: O melhor amigo dos Escritores</p>
       </div>
+
       <div class="flex items-end justify-center">
         <img src="../../../assets/imagens/image-2.svg" width="60%">
-
       </div>
-      
       
     </div>
    
@@ -119,13 +115,14 @@ export default defineComponent({
           v-bind:autoplay="true" v-bind:loop="true"
         >
           <CarouselContent class="w-[170vh]">
-            <CarouselItem v-for="(livro, index) in data" :key="livro.id" class="md:basis-1/2 lg:basis-40 mx-4 ">
+            <CarouselItem v-for="(editora, index) in data" :key="editora.id" class="md:basis-1/2 lg:basis-40 mx-4 ">
               <div class="py-1 px-3">
-                <Card class="w-20 border-0	">
-                  <CardContent class="flex aspect-square items-center justify-center p-6">
+                <Card class="w-[25vh] border-0 p-0	">
+                  <CardContent class="flex aspect-square items-center justify-center">
                     <EditoraItem 
-                      class="w-44 h-60 mb-[40px]"
-                      :editora="livro.nome"
+                      class="w-44 h-[25vh]"
+                      :editora="editora.nome"
+                      :idEditora="editora.idEditora"
                     />
                   </CardContent>
                 </Card>

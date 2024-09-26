@@ -6,7 +6,7 @@ const TOKEN_KEY = 'access_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 const NAME = 'name';
 const RESET_EMAIL = "reset_email";
-const CLIENTE = "id_cliente";
+const EDITORA = "id_editora";
 const API_URL = 'http://localhost:5110';
 const ID = 'id'
 const ID_USER = 'id'
@@ -73,12 +73,12 @@ const TokenService = {
         localStorage.removeItem(RESET_EMAIL);
     },
 
-    saveCliente(idCliente:string) {
-        localStorage.setItem(CLIENTE, idCliente);
+    saveEditora(idEditora:string) {
+        localStorage.setItem(EDITORA, idEditora);
     },
 
-    getCliente(){
-        return localStorage.getItem(CLIENTE);
+    geteditora(){
+        return localStorage.getItem(EDITORA);
     },
 
     saveUser(id:string) {

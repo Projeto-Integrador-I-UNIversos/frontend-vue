@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import LivroItem from '@/components/LivroItem.vue';
 import Button from '@/components/ui/button/Button.vue';
 import axios from 'axios';
@@ -7,13 +7,16 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent } from '@/components/ui/card'
 import EditoraItem from '@/components/EditoraItem.vue';
 import DataTable from '@/components/DataTable/DataTable.vue';
-import columns from '@/components/DataTable/ColumnsUser';
-
+import columns from '@/components/DataTable/ColumnsLivros';
 interface Data {
     id: number,
     titulo: string,
     escritor: string,
 }
+
+const data = ref<Data[]>([]);
+
+const URL = 'http://localhost:5001';
 
 export default defineComponent({
   name: 'LivroList',
@@ -37,28 +40,45 @@ export default defineComponent({
     }  
   },
   async mounted() {
-    this.data = await this.loadItems(this.data);
   },
-  methods: {
-    async loadItems(items: any) {
+  setup() {
+    async function loadItems(items: any) {
       try {
         const URL = 'http://localhost:5001';
         const response = await axios.get(`${URL}/livros`);
 
         items = response.data.map((item: any) => ({
-          id: item.id,
+          id: item.idLivro,
           titulo: item.titulo,
-          escritor: item.escritor 
+          escritor: item.idEscritor 
         }));
         return items;
       } catch {
         alert("Ops, não foi possível listar os livros");
       }
-    },
+    }
+
+    onMounted(async () => {
+        data.value = await loadItems(data)
+    })
+
+    return {
+      data,
+    }
+  },
+  methods: {
+    
     handleClickAndRedirectToClientePage(id: number) {
       console.log(id);
+      // const URL = 'http://localhost:5001';
+      // axios.post(`${URL}/deletar`)
+      //   .then(response => { console.log(response) })
+      //   .catch(error => { console.log(error) });
+    },
+
+    removeLivro(id: number) {
       const URL = 'http://localhost:5001';
-      axios.post(`${URL}/deletar`)
+      axios.post(`${URL}/livros/deletar/${id}`)
         .then(response => { console.log(response) })
         .catch(error => { console.log(error) });
     }
@@ -75,7 +95,7 @@ export default defineComponent({
 
 <template>
   <main class="pb-16 pt-24 px-5 full w-full h-full">
-    <DataTable :data="data" :columns="columns" @handle-click-get-id="handleClickAndRedirectToClientePage" />
+    <DataTable :data="data" :columns="columns" @remove-user-by-id="removeLivro" />
   </main>
 </template>
 

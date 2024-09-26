@@ -70,18 +70,7 @@ export default defineComponent({
   data() {
     return {
       isOpen,
-      Entity: {
-        titulo: '',
-        idioma: '',
-        QuantPaginas: '',
-        pais: '',
-        descricao: '',
-        capaLivro: null as File | null,
-        idEscritor: 3,
-        status: '',
-        PdfLivro: null as File | null, // PDF file upload field
-        selectedGeneros: [],
-      },
+      
       generos: [
         { name: 'Ficção' },
         { name: 'Não-ficção' },
@@ -106,73 +95,71 @@ export default defineComponent({
       ],
     };
   },
-  setup() {
+   setup() {
 
-    async function getId() {
-      
-    }
-      
-    return {
-      getId
-    }
-      
-  },
-  mounted() {
-    this.getId()
-  },
-  methods: {
-    async getIdEscritor(id:number) {
+    const Entity = ref({
+        titulo: '',
+        idioma: '',
+        QuantPaginas: '',
+        pais: '',
+        descricao: '',
+        capaLivro: null as File | null,
+        idEscritor: 3,
+        status: '',
+        PdfLivro: null as File | null, // PDF file upload field
+        selectedGeneros: [],
+      })
+
+    async function getIdEscritor() {
       try {
         const responseEscritor = await axios.get(`${URL}/escritores/${id}`)
         console.log('id',responseEscritor.data);
-        return responseEscritor.data.idEscritor
+        Entity.value.idEscritor = responseEscritor.data.idEscritor
       }
       catch(error){
         console.log(error);
         
       }
-    },
+    }
+
+    getIdEscritor()
+      
+      return {
+          Entity
+      }
+  },
+  methods: {
+   
     async loadUser() {
     
-     
- 
-    
-    this.Entity.idEscritor = await this.getIdEscritor(id)
-    console.log(this.Entity.idEscritor);
-    
+   
+      const formData = new FormData();
+      formData.append('titulo', this.Entity.titulo);
+      formData.append('idioma', this.Entity.idioma);
+      formData.append('QuantPaginas', this.Entity.QuantPaginas);
+      formData.append('pais', this.Entity.pais);
+      formData.append('descricao', this.Entity.descricao);
+      formData.append('capaLivro', this.Entity.capaLivro as File);
+      formData.append('idEscritor', this.Entity.idEscritor.toString());
+      formData.append('status', this.Entity.status);
+      formData.append('PdfLivro', this.Entity.PdfLivro as File);
+      console.log('FormData:', Array.from(formData.entries()));
 
-    const formData = new FormData();
-    formData.append('titulo', this.Entity.titulo);
-    formData.append('idioma', this.Entity.idioma);
-    formData.append('QuantPaginas', this.Entity.QuantPaginas);
-    formData.append('pais', this.Entity.pais);
-    formData.append('descricao', this.Entity.descricao);
-    formData.append('capaLivro', this.Entity.capaLivro as File);
-    formData.append('idEscritor', this.Entity.idEscritor.toString());
-    formData.append('status', this.Entity.status);
-    formData.append('PdfLivro', this.Entity.PdfLivro as File);
-    console.log('FormData:', Array.from(formData.entries()));
-      
-    
-    
-    try {
-     
-     
-
-      const response = await axios.post(`${URL}/cadastroLivro`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log(response.data);
-      alert('Cadastro Livro concluído');
-    } catch (error) {
-      console.error('Erro:', error);
-      alert('Cadastro Livro não concluído');
-    }
+      try {
+        const response = await axios.post(`${URL}/cadastroLivro`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        console.log(response.data);
+        alert('Cadastro Livro concluído');
+      } catch (error) {
+        console.error('Erro:', error);
+        alert('Cadastro Livro não concluído');
+      }
   },
 
-  handleFileChange(event: Event) {
+    handleFileChange(event: Event) {
       const target = event.target as HTMLInputElement;
       const files = target.files;
       if (files && files.length > 0) {

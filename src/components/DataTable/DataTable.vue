@@ -34,37 +34,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useVueTable,
-  Column,
-  FilterFn,
-  SortingFn,
-  sortingFns,
   
 } from '@tanstack/vue-table'
 
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
 import { inject, onMounted, provide, ref, watch, h } from 'vue'
 import { cn, valueUpdater } from '@/lib/utils'
-import { EllipsisVertical } from 'lucide-vue-next'
-import { ArrowUpDown, ChevronDown, Trash2 } from 'lucide-vue-next'
+import { ArrowUpDown, ChevronDown, Trash2, EllipsisVertical } from 'lucide-vue-next'
 import { defineEmits } from 'vue'
 
 const props = defineProps<{
@@ -102,11 +78,18 @@ const table = useVueTable({
 
 const emit = defineEmits<{
   (event: 'handle-click-get-id', id: number): void;
+  (event: 'remove-user-by-id', id: number): void;
+
 }>();['handle-click-get-id'];
 
 const handleClickId = (data: TData) => {
     const {id} = data as unknown as {id: number}
     emit('handle-click-get-id', id)
+}
+
+const removeUser = (data: TData) => {
+    const {id} = data as unknown as {id: number}
+    emit('remove-user-by-id', id)
 }
 
 </script>
@@ -116,9 +99,9 @@ const handleClickId = (data: TData) => {
     <div class="flex gap-2 items-center py-4">
       <Input
         class="max-w-sm"
-        placeholder="Filtrar emails..."
-        :model-value="table.getColumn('email')?.getFilterValue() as string"
-        @update:model-value=" table.getColumn('email')?.setFilterValue($event)"
+        placeholder="Filtrar id..."
+        :model-value="table.getColumn('id')?.getFilterValue() as string"
+        @update:model-value=" table.getColumn('id')?.setFilterValue($event)"
       />
       <DropdownMenu>
         <DropdownMenuTrigger as-child>
@@ -159,7 +142,7 @@ const handleClickId = (data: TData) => {
                     </TableCell>
                     <TableCell>
                         <Button>
-                          <Trash2/>
+                          <Trash2 @click="removeUser(row.original)"/>
                         </Button>
                     </TableCell>
                   </TableRow>

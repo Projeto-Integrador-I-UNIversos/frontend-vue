@@ -9,23 +9,28 @@ const columns: ColumnDef<Data>[] = [
 
     {
       accessorKey: 'id',
-      header: 'id',
+      header: ({ column }) => {
+        return h(Button, {
+          variant: 'ghost',
+          onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+        }, () => ['ID', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+      },
       cell: ({ row }) => h('div', { class: 'capitalize text-left' }, row.getValue('id')),
     },
     {
-      accessorKey: 'Editora',
+      accessorKey: 'editora',
       header: ({ column }) => {
         return h(Button, {
           variant: 'ghost',
           onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
         }, () => ['Editora', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
       },
-      cell: ({ row }) => h('div', { class: 'lowercase text-left' }, row.getValue('Editora')),
+      cell: ({ row }) => h('div', { class: 'lowercase text-left' }, row.getValue('editora')),
     },
     {
-        accessorKey: 'Livro',
+        accessorKey: 'livro',
         header: 'Livro',
-        cell: ({ row }) => h('div', { class: 'capitalize text-left' }, row.getValue('Livro')),
+        cell: ({ row }) => h('div', { class: 'capitalize text-left' }, row.getValue('livro')),
       },
   ]
 

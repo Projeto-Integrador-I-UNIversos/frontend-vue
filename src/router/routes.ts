@@ -54,7 +54,7 @@ const routes: Array<RouteRecordRaw> = [
         }
       },
       <RouteRecordRaw> {
-        path: 'editora',
+        path: 'editora/:id',
         name: 'Escritor.Editora',
         component: () => import('@/views/app/escritor/Editora.vue'),
         meta: {
@@ -170,13 +170,22 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     children: [
       <RouteRecordRaw> {
-        name: 'Auth.Login',
-        path: 'login',
-        component: () => import('../views/auth/login/Forms.vue'),
+        name: 'Auth',
+        path: '',
+        component: () => import('../views/auth/HomeView.vue'),
         meta: {
           public: true,
           onlyWhenLoggedOut: true,
       }
+      },
+      <RouteRecordRaw> {
+        name: 'Auth.Login',
+        path: 'login',
+        component: () => import('../views/auth/login/Forms.vue'),
+        meta: {
+            public: true,
+            onlyWhenLoggedOut: true,
+        }
       },
       <RouteRecordRaw> {
         path: '/cadastro/escritor',

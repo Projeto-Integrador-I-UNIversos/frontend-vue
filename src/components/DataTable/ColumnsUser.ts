@@ -13,11 +13,6 @@ const columns: ColumnDef<Data>[] = [
       cell: ({ row }) => h('div', { class: 'capitalize text-left' }, row.getValue('id')),
     },
     {
-      accessorKey: 'name',
-      header: 'Nome',
-      cell: ({ row }) => h('div', { class: 'capitalize text-left' }, row.getValue('name')),
-    },
-    {
       accessorKey: 'email',
       header: ({ column }) => {
         return h(Button, {
@@ -26,6 +21,16 @@ const columns: ColumnDef<Data>[] = [
         }, () => ['Email', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
       },
       cell: ({ row }) => h('div', { class: 'lowercase text-left' }, row.getValue('email')),
+    },
+    {
+      accessorKey: 'tipo',
+      header: ({ column }) => {
+        return h(Button, {
+          variant: 'ghost',
+          onClick: () => column.toggleSorting(column.getIsSorted() === 'asc'),
+        }, () => ['tipo', h(ArrowUpDown, { class: 'ml-2 h-4 w-4' })])
+      },
+      cell: ({ row }) => h('div', { class: 'lowercase text-left' }, row.getValue('tipo')),
     },
   ]
 

@@ -29,6 +29,7 @@ export default defineComponent({
   },
   props: {
     editora: { type: String, required: true },
+    idEditora: { type: Number, required: true }
     //capaLivro: { type: String, required: true },
   },
   computed: {
@@ -44,7 +45,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <!--div class="livro-item border p-4 m-4 shadow-lg rounded-lg cursor-pointer" @click="$router.push(`/app/livros/${idLivro}/editar`)">
+  <!--div class="livro-item border p-4 m-4 shadow-lg rounded-lg cursor-pointer" @click="$router.push(`/app/livros/${EditoraLivro}/editar`)">
     <img :src="caminhoCompletoCapa" alt="Capa do Livro" class="object-cover mb-4"/>
 
     <h2 class="text-xl font-bold">{{ editora }}</h2>
@@ -52,17 +53,16 @@ export default defineComponent({
     <div>
     </div>
   </div-->
-  <div class="flex justify-center p-0 m-0 w-44 z-1">
-  <div class="mt-5 p-0 justify-center flex flex-col">
-    <!--img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/-->
-        <img :src="image" alt="Capa do livro" width="150px" class="border ml-2"/>
+  <RouterLink :to="{name: 'Escritor.Editora', params:  {id : `${idEditora}`}}" class="flex w-full justify-center p-0 m-0 z-1 text-black ">
+    <div class=" p-0 justify-center flex flex-col">
+      <!--img :src="caminhoCompletoCapa" alt="Capa do livro" width="150px" class="border ml-2"/-->
+      <img :src="image" alt="Capa do livro" width="150px" class="border"/>
 
-    <div class="">
-      <h3 class="flex text-center pl-5 pt-2 pb-1 text-[13px]">{{ editora }}</h3>
-      <Button class="border-indigo-600 text-sm w-36 button h-8 ml-3 hover:bg-indigo-600 hover:text-white">Ver Editora</Button>
+      <div class=" flex justify-center">
+        <h3 class="flex text-center pt-2  text-[13px]">{{ editora }}</h3>
+      </div>
     </div>
-  </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style>

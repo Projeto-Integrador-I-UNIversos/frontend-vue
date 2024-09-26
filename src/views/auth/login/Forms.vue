@@ -53,13 +53,18 @@ export default defineComponent({
                  *      router.push({name: 'Admin'})
                  */
                  TokenService.saveUser(response.data.id)
-
-                 if (response.data.tipo = 'escritor') {
+                 console.log(response.data.tipo);
+                 
+                 if(response.data.tipo == 'admin') {
+                    router.push('/admin')
+                 }
+                 else if (response.data.tipo == 'escritor') {
                     router.push('/escritor')
                  }
-                 else if (response.data.tipo = 'editora'){
+                 else{
                     router.push('/editora')
                  }
+                 
 
             })
             .catch((error) => {

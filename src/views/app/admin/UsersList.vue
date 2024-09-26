@@ -105,7 +105,7 @@ export default defineComponent({
       
       
     },
-    handleClickAndRedirectToClientePage(id:string){
+    remove(id:string){
       console.log(id);
       const URL = 'http://localhost:5001';
         // UserService.delete(id)
@@ -131,7 +131,7 @@ export default defineComponent({
 <template>
   <main class="pb-16 pt-24 px-5full w-full h-">
 
-    <DataTable :data="data" :columns="columns" @handle-click-get-id="handleClickAndRedirectToClientePage" />
+    <DataTable :data="data" :columns="columns" @handle-click-get-id="remove" />
     
 </main>
 </template>

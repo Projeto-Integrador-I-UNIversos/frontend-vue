@@ -79,39 +79,42 @@ export default defineComponent({
         pdf: ''
       })
 
-      function loadItems() {
+
+      async function getEscritor(idEscritor:number) {
+          try {
+            const URL = 'http://localhost:5001';
+            const response = await axios.get(`${URL}/escritores/${idEscritor}`)
+            console.log(response);
+            
+            return response.data.nome
+          }
+          catch (error) {
+            console.error("Erro ao carregar os itens:", error);
+          }
+      }
+
+      async function loadItems() {
         const URL = 'http://localhost:5001';
 
 
         const id = TokenService.getName();
-        axios.get(`${URL}/livros/10`)
-          .then((response) => {
-            const escritor = response.data.idEscritor
+        try {
+            const response = await axios.get(`${URL}/livros/10`);
+            const escritor = await getEscritor(response.data.idEscritor);
+            console.log(escritor);
 
+            Entity.value.id = response.data.idLivro;
             Entity.value.titulo = response.data.titulo;
-            Entity.value.escritor = escritor
+            Entity.value.escritor = escritor;
             Entity.value.descricao = response.data.descricao;
-            Entity.value.capa = response.data.capa;
+            Entity.value.capa = response.data.capaLivro;
             Entity.value.genero = response.data.genero;
-            Entity.value.pdf = response.data.PdfLivro
+            Entity.value.pdf = response.data.PdfLivro;
 
-            console.log(response.data);
-            
-          })
-          .catch((error) => {console.log(error);
-          })
-      }
-
-      async function getEscritor(id:any) {
-      try {
-        const URL = 'http://localhost:5001';
-        const response = await axios.get(`${URL}/escritores/${id}`)
-        return response.data.nome;
-      }
-      catch (error) {
-        console.error("Erro ao carregar os itens:", error);
-      }
-      
+            console.log(response.data.capaLivro);
+          } catch (error) {
+            console.log(error);
+          }
       }
 
       async function download() {
@@ -135,7 +138,33 @@ export default defineComponent({
             console.error('Erro ao baixar o PDF:', error);
           }
           
-        }
+      }
+
+      function proposta() {
+          const URL = 'http://localhost:5001';
+
+          const date = ref()
+          const now = new Date();
+          const formattedDate = now.toISOString().slice(0, 19).replace('T', ' '); // Formato 'YYYY-MM-DD HH:mm:ss'
+          
+          date.value = formattedDate;
+
+          const dados = {
+            idEditora: Number(TokenService.getUser()),
+            idLivro: Entity.value.id,
+            idEscritor: Entity.value.escritor,
+            data: date.value
+          }
+
+          console.log(dados);
+          axios.post(`${URL}/propostas`, dados)
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error)=> {
+              console.log(error)              
+            })
+      }
 
       onMounted(() => {
         loadItems()
@@ -143,7 +172,9 @@ export default defineComponent({
 
       return {
         Entity,
-        download
+        download,
+        proposta,
+        getEscritor
       }
     }
 
@@ -154,10 +185,10 @@ export default defineComponent({
 
 
 <template>
-    <div class="flex flex-col pt-20 flex justify-center bg-[#f9f9f9] h-[95vh]">
+    <div class="flex flex-col pt-20 flex justify-center h-[95vh]">
       <div class="flex flex-row justify-center px-[10%]">
-        <div class="flex w-[70%] flex-col text-left text-[#6208b8]">
-          <h1 class="inter-base pb-4" >{{ Entity.titulo }}</h1>
+        <div class="flex w-[100%] flex-col justify-center text-left text-[#6208b8]">
+          <h1 class="inter-base pb-4 text-[30px]" >{{ Entity.titulo }}</h1>
           <p class="inter-base pb-2" >{{ Entity.escritor }}</p>
           <div class="flex" >
             <div>
@@ -167,13 +198,13 @@ export default defineComponent({
          
           <p class="inter-light mt-3" >{{ Entity.descricao }}</p>
           <div class="flex my-10 items-center" >
-            <Button class="bg-indigo-400 hover:bg-indigo-500 px-4 text-white inter-base rounded-[30px] w-[70%]" >Enviar Proposta</Button>
+            <Button @click="proposta" class="bg-indigo-400 hover:bg-indigo-500 px-4 text-white inter-base rounded-[30px] w-[70%]" >Enviar Proposta</Button>
             <Button @click="download" class="bg-indigo-400 hover:bg-indigo-500 text-white inter-base rounded-[30px] w-[70%] mx-3" >Download PDF</Button>
             <Heart class="mx-10 cursor-pointer" />
           </div>
         </div>
         <div class="flex justify-center">
-          <img :src="Entity.capa" width="60%"  class="rounded-[20px]">
+          <img :src="`http://localhost:5001/livro_capa/${Entity.capa}`" width="60%"  class="rounded-[20px]">
         </div>
       </div>
      

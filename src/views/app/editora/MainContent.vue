@@ -57,19 +57,35 @@ export default defineComponent({
     this.id
   },
   methods: {
+    async getEscritor(idEscritor:number) {
+          try {
+            const URL = 'http://localhost:5001';
+            const response = await axios.get(`${URL}/escritores/${idEscritor}`)
+            console.log(response);
+            
+            return response.data.nome
+          }
+          catch (error) {
+            console.error("Erro ao carregar os itens:", error);
+          }
+      },
     async loadItems(items:any) {
 
       try {
         const URL = 'http://localhost:5001';
         const response = await axios.get(`${URL}/livros`)
         TokenService.saveName(response.data.id)
+
+        console.log(response.data);
         
-        items = response.data.map((item: any) => ({
-                id: item.id,
-                titulo: item.titulo,
-                capa: item.capa,
-                escritor: this.getEscritor(item.idEscritor)
-                }));
+        const items = await Promise.all(
+          response.data.map(async (item: any) => ({
+            id: item.idLivro,
+            titulo: item.titulo,
+            capa: item.capaLivro,
+            escritor: await this.getEscritor(item.idEscritor) // Espera a resposta de getEscritor
+          })));
+                
         return items;
         
 
@@ -82,17 +98,7 @@ export default defineComponent({
     handleClickAndRedirectToClientePage(){
       return router.push({path: `/app/livros/${this.id}/editar`});
     },
-    async getEscritor(id:number) {
-      try {
-        const URL = 'http://localhost:5001';
-        const response = await axios.get(`${URL}/escritores/${id}`)
-        return response.data.nome;
-      }
-      catch (error) {
-        console.error("Erro ao carregar os itens:", error);
-      }
-      
-    }
+
   },
   computed: {
     caminhoCompletoCapa(): string {
@@ -107,7 +113,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <main class="pb-16 pt-24 px-10 w-full h-[86vh]">
+  <main class="pb-16 pt-24 px-10 w-full h-full">
 
     <div class=" h-[50vh]  bg-[#f4d747] rounded-[30px] flex py-4 px-10 grid grid-cols-2">
       <div class="flex items-center justify-center flex-col">
@@ -116,49 +122,13 @@ export default defineComponent({
       </div>
       <div class="flex items-end justify-center">
         <img src="../../../assets/imagens/image-1.svg" width="60%">
-
       </div>
       
     </div>
-    <div class="flex justify-center" >
-      <div class="mt-10 flex justify-center ml-[-60px]">
-      
-      
-      </div>
-    </div>
-    <div class="flex mt-14">
+    <div class="flex mt-14 mb-10">
       <p class="text-left pr-2">Mostrar Todos os Livros</p>
     </div>
-    <div class="flex justify-center" >
-      <Carousel
-          class="relative w-[160vh]"
-          :opts="{
-            align: 'start',
-          }"
-          v-bind:autoplay="true" v-bind:loop="true"
-        >
-          <CarouselContent class="w-[170vh]">
-            <CarouselItem v-for="(livro, index) in data" :key="livro.id" class="md:basis-1/2 lg:basis-40 mx-4 ">
-              <div class="py-1 px-3">
-                <Card class="w-20 border-0	">
-                  <CardContent class="flex aspect-square items-center justify-center p-6">
-                    <LivroItem 
-                        class="w-44 h-60 mb-[40px]"
-                        v-for="livro in data"
-                        :titulo="livro.titulo"
-                        :escritor="livro.escritor"
-                        :capaLivro="livro.capa"
-                        :idLivro="livro.id"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      </div>
+   
     <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-2">
         <!--LivroItem 
             class="w-44 h-60"
@@ -168,7 +138,7 @@ export default defineComponent({
             :idLivro="livro.idLivro"
         /-->
         <LivroItem 
-            class="w-44 h-60 mb-[40px]"
+            class="w-44 h-60 mb-[40px] hover:border-[1px] hover:border-indigo-600 hover:rounded-[10px]"
             v-for="livro in data"
             :titulo="livro.titulo"
             :escritor="livro.escritor"

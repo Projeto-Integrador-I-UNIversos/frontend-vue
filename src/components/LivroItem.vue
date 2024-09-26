@@ -26,7 +26,7 @@ export default defineComponent({
     titulo: { type: String, required: true },
     escritor: {type: String, required: true},
     capaLivro: { type: String, required: true },
-    idLivro: { type: Number, required: true }
+    idLivro: { type: String, required: true }
   },
   computed: {
     caminhoCompletoCapa(): string {
@@ -37,10 +37,11 @@ export default defineComponent({
       return caminho;
     }
   },
-  mathods: {
+  methods: {
     goTo() {
       router.push({path: `livro/${this.idLivro}`})
-    }
+    },
+    
   }
 })
 </script>
@@ -56,7 +57,7 @@ export default defineComponent({
   </div-->
   <RouterLink :to="{name: 'Editora.Livro', params: {id : `${idLivro}`}}" class="flex justify-center w-44 px-3 py-3 text-left cursor-pointer text-black">
     <div class=" justify-center flex flex-col">
-      <img :src="caminhoCompletoCapa" alt="Capa do livro" width="100%" class="rounded-[15px] p-2"/>
+      <img :src="`http://localhost:5001/livro_capa/${capaLivro}`" width="100%" class="rounded-[15px] p-2">
       <div class="ml-2">
         <h3 class="flex pb-1 text-[13px]">{{ titulo }}</h3>
         <p class="text-[11px] mb-2">{{ escritor }}</p>

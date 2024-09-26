@@ -8,7 +8,8 @@ import { ref } from 'vue';
 
 interface Data {
     id: number,
-    Editora: string,Livro: string
+    editora: string,
+    livro: string
 }
 
 const data = ref<Data[]>([]);
@@ -28,16 +29,19 @@ export default defineComponent({
     },
     async mounted() {
         data.value = await this.loadItems(data)
+        console.log(data.value);
+        
     },
     methods: {
         async loadItems(items:any){
             try {
-                const response = await axios.post(`${URL}/propostas`)
+                const response = await axios.get(`${URL}/propostas`)
 
                 items = response.data.map((item: any) => ({
-                    id: item.id,
-                    Editora: this.loadEditora(item.Editora),
-                    Escritor: this.loadLivro(item.idEscritor )
+                    id: item.idProposta,
+                    editora: item.idEditora,
+                    // escritor: this.loadLivro(item.idEscritor )
+                    livro: item.idLivro
                 }));
         return items;
             }
@@ -50,10 +54,11 @@ export default defineComponent({
             const response = await axios.get(`${URL}/editoras/${id}`)
 
             const items = response.data.map((item:any) => ({
-                nome: item.nome
+                nome: item.nome,
+                id: item.idEditora
             }))
 
-            return items.nome
+            return items.id
         },
         async loadLivro(id:number){
             const response = await axios.get(`${URL}/livros/${id}`)
@@ -63,6 +68,17 @@ export default defineComponent({
             }))
 
             return items.titulo
+        },
+        remove(id:string){
+            console.log(id);
+            const URL = 'http://localhost:5001';
+                // UserService.delete(id)
+                // .then((response)=> console.log(response));
+                // .catch((error)=> console.log(error));
+                axios.post(`${URL}/deletar`)
+                .then((response)=> {console.log(response)})
+                .catch((error) => {console.log(error)})
+            
         }
     }
 })
